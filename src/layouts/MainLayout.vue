@@ -1,43 +1,40 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
+    <q-header>
+      <q-toolbar class="bg-secondary">
+        <q-toolbar-title> Logo here </q-toolbar-title>
         <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
-          v-bind="link"
+          stretch
+          flat
+          :label="link.title"
+          :to="link.route"
         />
-      </q-list>
-    </q-drawer>
+        <template v-if="authStore.user.id">
+          <q-avatar class="cursor-pointer" color="warning" text-color="white">
+            {{ authStore.user.user_metadata.full_name.substring(0, 1) }}
+            <q-menu>
+              <q-list style="min-width: 100px">
+                <q-item clickable v-close-popup>
+                  <q-item-section @click="logout()">{{
+                    $t("common.logout")
+                  }}</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-avatar>
+        </template>
+        <template v-else>
+          <q-btn
+            to="/auth/login"
+            color="warning"
+            text-color="black"
+            :label="$t('common.joinNow')"
+          />
+        </template>
+      </q-toolbar>
+    </q-header>
 
     <q-page-container>
       <router-view />
@@ -46,71 +43,41 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+import { defineComponent, ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useAuthStore } from "stores/Auth";
+import supabase from "boot/supabase";
 
 export default defineComponent({
-  name: 'MainLayout',
+  name: "MainLayout",
 
-  components: {
-    EssentialLink
-  },
+  setup() {
+    const $t = useI18n().t;
+    const authStore = useAuthStore();
+    const loading = ref(false);
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+    const linksList = [
+      {
+        title: $t("common.home"),
+        route: "/",
+      },
+      {
+        title: $t("common.explorer"),
+        route: "/explorer",
+      },
+    ];
 
     return {
+      authStore,
       essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+      loading,
+      async logout() {
+        loading.value = true;
+        await supabase.auth.signOut();
+        authStore.logout();
+        loading.value = false;
+      },
+    };
+  },
+});
 </script>
