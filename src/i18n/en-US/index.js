@@ -23,6 +23,13 @@ export default {
     type: 'Type',
     country: 'Country',
     city: 'City',
+    basicInformation: 'Basic Information',
+    description: 'Description',
+    phone: 'Phone',
+    internetSpeed: 'Internet Speed',
+    privateOffice: 'Private Office',
+    location: 'Location',
+
   },
   messages: {
     information: {
@@ -32,5 +39,6 @@ export default {
   action: {
     viewMore: 'View More',
     showMap: 'Show Map',
+    publish: 'Publish',
   }
 }
