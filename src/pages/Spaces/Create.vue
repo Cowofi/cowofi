@@ -6,7 +6,7 @@
       </q-card>
       <q-card class="q-mt-md" flat bordered>
         <q-card-section class="q-gutter-md">
-          <p>{{ $t("common.basicInformation") }}</p>
+          <p class="text-h6">{{ $t("common.basicInformation") }}</p>
           <q-input
             :label="$t('common.description')"
             v-model="space.description"
@@ -58,24 +58,41 @@
       </q-card>
       <q-card class="q-mt-md" flat bordered>
         <q-card-section class="q-gutter-md">
-          <p>{{ $t("common.location") }}</p>
+          <p class="text-h6">{{ $t("common.location") }}</p>
           <q-select
             outlined
             v-model="space.country"
-            :options="[]"
+            :options="filteredCountries"
             :label="$t('common.country')"
-            style="width: 250px"
             dropdown-icon="eva-arrow-down-outline"
+            @filter="filterCountries"
+            use-input
           />
           <q-select
             outlined
             v-model="space.city"
-            :options="[]"
+            :options="filteredCities"
             :label="$t('common.city')"
-            style="width: 250px"
             dropdown-icon="eva-arrow-down-outline"
+            @filter="filterCities"
+            use-input
           />
-          <div style="height: 200px; border: 1px solid grey">Map here</div>
+          <div
+            style="
+              height: 350px;
+              border: 1px solid grey;
+              position: relative;
+              border-radius: 4px;
+            "
+          >
+            <location-picker
+              class="bg-white"
+              @location="
+                (coordinates) =>
+                  (space.location = `${coordinates.latitude},${coordinates.longitude}`)
+              "
+            />
+          </div>
         </q-card-section>
         <q-card-section>
           <div class="q-pa-md">
@@ -95,11 +112,14 @@
 <script>
 import { ref } from "vue";
 import SpaceTypeSelection from "components/Space/TypeSelectionCard.vue";
+import LocationPicker from "components/Map/LocationPicker.vue";
+import countriesJSON from "assets/countries.min.json";
 
 export default {
   name: "PageCreateSpace",
   components: {
     SpaceTypeSelection,
+    LocationPicker,
   },
   setup() {
     const space = ref({
@@ -117,8 +137,15 @@ export default {
       privateOffice: false,
     });
 
+    const countriesArray = Object.keys(countriesJSON).map((key) => key);
+    const filteredCountries = ref([]);
+    const filteredCities = ref([]);
+
     return {
       space,
+      filteredCountries,
+      filteredCities,
+      countriesJSON,
       spaceTypes: [
         {
           img: "/images/illustrations/co-working.png",
@@ -141,6 +168,36 @@ export default {
           value: "restaurant",
         },
       ],
+      filterCountries(val, update) {
+        if (val === "") {
+          update(() => {
+            filteredCountries.value = countriesArray;
+          });
+          return;
+        }
+
+        update(() => {
+          const needle = val.toLowerCase();
+          filteredCountries.value = countriesArray.filter(
+            (v) => v.toLowerCase().indexOf(needle) > -1
+          );
+        });
+      },
+      filterCities(val, update) {
+        if (val === "") {
+          update(() => {
+            filteredCities.value = countriesJSON[space.value.country];
+          });
+          return;
+        }
+
+        update(() => {
+          const needle = val.toLowerCase();
+          filteredCities.value = countriesJSON[space.value.country].filter(
+            (v) => v.toLowerCase().indexOf(needle) > -1
+          );
+        });
+      },
     };
   },
 };
