@@ -29,16 +29,23 @@ export default {
     internetSpeed: 'Internet Speed',
     privateOffice: 'Private Office',
     location: 'Location',
-
+    price: 'Price',
+    opensAt: 'Opens At',
+    closesAt: 'Closes At',
+    spaceInformation: 'Space Information',
   },
   messages: {
     information: {
       findPerfectWorkingSpaceNearYou: 'Find perfect working space near you',
+      youSpaceIsNowAvailable: 'Your space is now available',
+      afterPublishMessage: 'What`s next now? share with the world that you have a space available',
     }
   },
   action: {
     viewMore: 'View More',
     showMap: 'Show Map',
     publish: 'Publish',
+    goHome: 'Go Home',
+    viewSpace: 'View Space',
   }
 }
