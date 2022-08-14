@@ -11,6 +11,7 @@
         <div class="col-12">
           {{ $t("action.viewMore") }}
           <q-btn
+            :to="to"
             flat
             round
             text-color="black"
@@ -29,6 +30,10 @@ export default {
     title: {
       type: String,
       default: "",
+    },
+    to: {
+      type: String,
+      default: "#",
     },
   },
   setup() {
