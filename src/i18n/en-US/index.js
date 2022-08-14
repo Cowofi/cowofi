@@ -16,5 +16,16 @@ export default {
     confirmPassword: 'Confirm Password',
     register: 'Register',
     fullname: 'Fullname',
+    chillOutZone: 'Chill Out Zone',
+    office: 'Office',
+    spaceForEvents: 'Space for events',
+  },
+  messages: {
+    information: {
+      findPerfectWorkingSpaceNearYou: 'Find perfect working space near you',
+    }
+  },
+  action: {
+    viewMore: 'View More',
   }
 }
