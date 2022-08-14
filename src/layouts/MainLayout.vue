@@ -27,6 +27,7 @@
         </template>
         <template v-else>
           <q-btn
+            push
             to="/auth/login"
             color="warning"
             text-color="black"
