@@ -17,7 +17,10 @@
     <div class="bg-secondary q-pa-md">
       <div class="row">
         <div class="col-12">
-          <article-type :title="$t('common.chillOutZone')">
+          <article-type
+            :title="$t('common.chillOutZone')"
+            to="/explorer?type=chill-out-zone"
+          >
             <template v-slot:img>
               <img width="50" src="~assets/illustrations/chill_zone.png" />
             </template>
