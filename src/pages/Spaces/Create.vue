@@ -191,6 +191,7 @@
               text-color="black"
               :label="$t('action.publish')"
               type="submit"
+              icon="eva-paper-plane-outline"
             />
           </div>
         </q-card-section>
