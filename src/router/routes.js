@@ -16,6 +16,13 @@ const routes = [
       { path: 'register', component: () => import('pages/Auth/Register.vue') },
     ]
   },
+  {
+    path: '/spaces',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: 'create', component: () => import('pages/Spaces/Create.vue') }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
