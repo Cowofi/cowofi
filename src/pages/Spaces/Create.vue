@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-form class="q-gutter-md">
+    <q-form @submit="submit" class="q-gutter-md">
       <q-card flat bordered>
         <q-card-section style="height: 200px"> images import </q-card-section>
       </q-card>
@@ -12,17 +12,29 @@
             v-model="space.description"
             outlined
             type="textarea"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                $t('messages.error.pleaseEnterADescription'),
+            ]"
           />
           <q-input
             :label="$t('common.phone')"
             v-model="space.phone"
             outlined
             mask="(###) ### - ####"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                $t('messages.error.pleaseEnterValidPhoneNumber'),
+            ]"
           />
         </q-card-section>
       </q-card>
       <q-card class="q-mt-md" flat bordered>
-        <q-card-section>
+        <q-card-section class="q-gutter-md">
           <p class="text-h6">{{ $t("common.spaceInformation") }}</p>
 
           <q-input
@@ -30,6 +42,12 @@
             v-model="space.price"
             outlined
             type="number"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                $t('messages.error.pleaseEnterPrice'),
+            ]"
           />
 
           <div class="q-my-md">
@@ -62,6 +80,7 @@
             outlined
             v-model="space.internetSpeed"
             :label="$t('common.internetSpeed')"
+            :hint="$t('messages.information.internetSpeedExample')"
           />
           <q-toggle
             v-model="space.privateOffice"
@@ -135,7 +154,6 @@
             v-model="space.country"
             :options="filteredCountries"
             :label="$t('common.country')"
-            dropdown-icon="eva-arrow-down-outline"
             @filter="filterCountries"
             use-input
           />
@@ -144,7 +162,6 @@
             v-model="space.city"
             :options="filteredCities"
             :label="$t('common.city')"
-            dropdown-icon="eva-arrow-down-outline"
             @filter="filterCities"
             use-input
           />
@@ -169,11 +186,11 @@
           <div class="q-pa-md">
             <q-btn
               :loading="loading"
-              @click="submit()"
               class="full-width"
               color="primary"
               text-color="black"
               :label="$t('action.publish')"
+              type="submit"
             />
           </div>
         </q-card-section>
