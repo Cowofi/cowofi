@@ -19,6 +19,19 @@
             outlined
             mask="(###) ### - ####"
           />
+        </q-card-section>
+      </q-card>
+      <q-card class="q-mt-md" flat bordered>
+        <q-card-section>
+          <p class="text-h6">{{ $t("common.spaceInformation") }}</p>
+
+          <q-input
+            :label="$t('common.price')"
+            v-model="space.price"
+            outlined
+            type="number"
+          />
+
           <div class="q-my-md">
             <div class="row q-col-gutter-sm">
               <div
@@ -54,6 +67,64 @@
             v-model="space.privateOffice"
             :label="$t('common.privateOffice')"
           />
+          <div class="q-gutter-sm row">
+            <q-input
+              outlined
+              v-model="space.opensAt"
+              mask="time"
+              :rules="['time']"
+              :label="$t('common.opensAt')"
+            >
+              <template v-slot:append>
+                <q-icon name="eva-clock-outline" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-time v-model="space.opensAt">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+            <q-input
+              outlined
+              v-model="space.closesAt"
+              mask="time"
+              :rules="['time']"
+              :label="$t('common.closesAt')"
+            >
+              <template v-slot:append>
+                <q-icon name="eva-clock-outline" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-time v-model="space.closesAt">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
         </q-card-section>
       </q-card>
       <q-card class="q-mt-md" flat bordered>
@@ -97,6 +168,8 @@
         <q-card-section>
           <div class="q-pa-md">
             <q-btn
+              :loading="loading"
+              @click="submit()"
               class="full-width"
               color="primary"
               text-color="black"
@@ -106,14 +179,46 @@
         </q-card-section>
       </q-card>
     </q-form>
+    <q-dialog maximized v-model="success">
+      <q-card>
+        <q-card-section class="text-center">
+          <img src="/images/illustrations/success_publish.png" width="400" />
+        </q-card-section>
+
+        <q-card-section class="text-center">
+          <p class="text-h5">
+            {{ $t("messages.information.youSpaceIsNowAvailable") }}!
+          </p>
+          <p>{{ $t("messages.information.afterPublishMessage") }}!</p>
+        </q-card-section>
+
+        <q-card-section class="text-center q-gutter-md">
+          <q-btn
+            push
+            color="white"
+            text-color="black"
+            :label="$t('action.goHome')"
+            to="/"
+          />
+          <q-btn
+            push
+            color="primary"
+            text-color="black"
+            :label="$t('action.viewSpace')"
+          />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 import { ref } from "vue";
+import { Notify } from "quasar";
 import SpaceTypeSelection from "components/Space/TypeSelectionCard.vue";
 import LocationPicker from "components/Map/LocationPicker.vue";
 import countriesJSON from "assets/countries.min.json";
+import supabase from "boot/supabase";
 
 export default {
   name: "PageCreateSpace",
@@ -126,8 +231,8 @@ export default {
       description: "",
       internet: true,
       internetSpeed: "",
-      opensAt: "",
-      closesAt: "",
+      opensAt: "09:00",
+      closesAt: "17:00",
       price: 0,
       country: "",
       city: "",
@@ -136,16 +241,19 @@ export default {
       type: "work_space",
       privateOffice: false,
     });
-
+    const success = ref(false);
     const countriesArray = Object.keys(countriesJSON).map((key) => key);
     const filteredCountries = ref([]);
     const filteredCities = ref([]);
+    const loading = ref(false);
 
     return {
       space,
       filteredCountries,
       filteredCities,
       countriesJSON,
+      success,
+      loading,
       spaceTypes: [
         {
           img: "/images/illustrations/co-working.png",
@@ -197,6 +305,42 @@ export default {
             (v) => v.toLowerCase().indexOf(needle) > -1
           );
         });
+      },
+      async submit() {
+        loading.value = true;
+        const { data, error } = await supabase.from("spaces").insert([
+          {
+            description: space.value.description,
+            phone: space.value.phone,
+            price: space.value.price,
+            type: space.value.type,
+            internet: space.value.internet,
+            internet_speed: space.value.internetSpeed,
+            private_office: space.value.privateOffice,
+            opens_at: space.value.opensAt,
+            closes_at: space.value.closesAt,
+            country: space.value.country,
+            city: space.value.city,
+            location: space.value.location,
+          },
+        ]);
+
+        if (error) {
+          Notify.create({
+            color: "negative",
+            textColor: "white",
+            message: error.message,
+          });
+          return;
+        }
+
+        if (data) {
+          success.value = true;
+        }
+
+        setTimeout(() => {
+          success.value = false;
+        }, 3000);
       },
     };
   },
