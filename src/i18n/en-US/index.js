@@ -53,5 +53,6 @@ export default {
     publish: 'Publish',
     goHome: 'Go Home',
     viewSpace: 'View Space',
+    exploreSpaces: 'Explore Space'
   }
 }

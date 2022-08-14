@@ -13,8 +13,17 @@
           style="width: 600px"
         />
       </div>
+      <div class="col-12">
+        <q-btn
+          color="primary"
+          text-color="black"
+          :label="$t('action.exploreSpaces')"
+          icon="eva-search-outline"
+          to="/explorer"
+        />
+      </div>
     </div>
-    <div class="bg-secondary q-pa-md">
+    <div class="bg-secondary q-pa-md q-mt-lg">
       <div class="row">
         <div class="col-12">
           <space-type
