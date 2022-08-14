@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "ComponentArticleType",
+  name: "ComponentSpaceType",
   props: {
     title: {
       type: String,

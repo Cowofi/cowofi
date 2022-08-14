@@ -70,7 +70,7 @@ export default {
 
     if (query.type) {
       loading.value = true;
-      // fetch the articles by type
+      // fetch the spaces by type
       loading.value = false;
     }
 
