@@ -18,7 +18,7 @@
       <q-card flat style="max-width: 400px" class="q-mx-auto q-mt-lg">
         <q-card-section class="text-center">
           <q-img
-            src="~assets/main-logo.png"
+            src="images/main-logo.png"
             spinner-color="white"
             style="height: 100px; max-width: 100px"
           />
