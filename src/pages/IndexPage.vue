@@ -9,7 +9,7 @@
       <div class="col-8 text-right">
         <img
           alt="work time illustration"
-          src="~assets/illustrations/work_time.png"
+          src="/images/illustrations/work_time.png"
           style="width: 600px"
         />
       </div>
@@ -22,7 +22,7 @@
             to="/explorer?type=chill-out-zone"
           >
             <template v-slot:img>
-              <img width="50" src="~assets/illustrations/chill_zone.png" />
+              <img width="50" src="/images/illustrations/chill_zone.png" />
             </template>
           </space-type>
         </div>
