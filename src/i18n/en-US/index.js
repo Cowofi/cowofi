@@ -39,6 +39,12 @@ export default {
       findPerfectWorkingSpaceNearYou: 'Find perfect working space near you',
       youSpaceIsNowAvailable: 'Your space is now available',
       afterPublishMessage: 'What`s next now? share with the world that you have a space available',
+      internetSpeedExample: 'Example: 100Mb/s',
+    },
+    error: {
+      pleaseEnterValidPhoneNumber: 'Please enter valid phone number',
+      pleaseEnterADescription: 'Please enter a description, it`s important to attract more people',
+      pleaseEnterPrice: 'Please enter price',
     }
   },
   action: {
