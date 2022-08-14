@@ -19,6 +19,10 @@ export default {
     chillOutZone: 'Chill Out Zone',
     office: 'Office',
     spaceForEvents: 'Space for events',
+    coworkingSpaceIn: 'Coworking Space in',
+    type: 'Type',
+    country: 'Country',
+    city: 'City',
   },
   messages: {
     information: {
@@ -27,5 +31,6 @@ export default {
   },
   action: {
     viewMore: 'View More',
+    showMap: 'Show Map',
   }
 }
