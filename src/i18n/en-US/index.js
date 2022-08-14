@@ -7,5 +7,14 @@ export default {
     explorer: 'Explorer',
     joinNow: 'Join Now',
     logout: 'Logout',
+    login: 'Login',
+    connectWithOneClick: 'Connect with one click',
+    forgotPassword: 'Forgot Password',
+    registerWithEmail: 'Register with email',
+    email: 'Email',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    register: 'Register',
+    fullname: 'Fullname',
   }
 }
