@@ -1,5 +1,5 @@
 <template>
-  <q-card class="type-card-container">
+  <q-card class="type-card-container cursor-pointer">
     <q-card-section>
       <div class="row justify-center items-center">
         <div class="col-4">
@@ -9,14 +9,7 @@
           <span class="text-bold">{{ title }}</span>
         </div>
         <div class="col-12">
-          {{ $t("action.viewMore") }}
-          <q-btn
-            :to="to"
-            flat
-            round
-            text-color="black"
-            icon="eva-arrow-circle-right-outline"
-          />
+          <slot name="selection"></slot>
         </div>
       </div>
     </q-card-section>
@@ -25,7 +18,7 @@
 
 <script>
 export default {
-  name: "ComponentArticleType",
+  name: "ComponentSpaceType",
   props: {
     title: {
       type: String,
@@ -44,5 +37,6 @@ export default {
 <style>
 .type-card-container {
   max-width: 250px;
+  height: 110px;
 }
 </style>

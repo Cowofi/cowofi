@@ -5,7 +5,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'explorer', component: () => import('src/pages/ExplorerArticles.vue') }
+      { path: 'explorer', component: () => import('src/pages/ExploreSpaces.vue') }
     ]
   },
   {
@@ -14,6 +14,13 @@ const routes = [
     children: [
       { path: 'login', component: () => import('pages/Auth/Login.vue') },
       { path: 'register', component: () => import('pages/Auth/Register.vue') },
+    ]
+  },
+  {
+    path: '/spaces',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: 'create', component: () => import('pages/Spaces/Create.vue') }
     ]
   },
 

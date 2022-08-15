@@ -23,14 +23,37 @@ export default {
     type: 'Type',
     country: 'Country',
     city: 'City',
+    basicInformation: 'Basic Information',
+    description: 'Description',
+    phone: 'Phone',
+    internetSpeed: 'Internet Speed',
+    privateOffice: 'Private Office',
+    location: 'Location',
+    price: 'Price',
+    opensAt: 'Opens At',
+    closesAt: 'Closes At',
+    spaceInformation: 'Space Information',
   },
   messages: {
     information: {
       findPerfectWorkingSpaceNearYou: 'Find perfect working space near you',
+      youSpaceIsNowAvailable: 'Your space is now available',
+      afterPublishMessage: 'What`s next now? share with the world that you have a space available',
+      internetSpeedExample: 'Example: 100Mb/s',
+      clickHereToUploadMultipleImages: 'Click here to upload multiple images',
+    },
+    error: {
+      pleaseEnterValidPhoneNumber: 'Please enter valid phone number',
+      pleaseEnterADescription: 'Please enter a description, it`s important to attract more people',
+      pleaseEnterPrice: 'Please enter price',
     }
   },
   action: {
     viewMore: 'View More',
     showMap: 'Show Map',
+    publish: 'Publish',
+    goHome: 'Go Home',
+    viewSpace: 'View Space',
+    exploreSpaces: 'Explore Space'
   }
 }
