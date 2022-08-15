@@ -51,15 +51,30 @@
         </div>
       </div>
     </q-card>
+    <q-card flat bordered class="q-mt-md">
+      <q-card-section>
+        <div class="row">
+          <div class="col-12" v-for="space in spaces" :key="space.id">
+            <space-mini :space="space" />
+          </div>
+        </div>
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
 <script>
 import { useRoute } from "vue-router";
 import { ref } from "vue";
+import { Notify } from "quasar";
+import supabase from "boot/supabase";
+import SpaceMini from "components/Space/SpaceMini.vue";
 
 export default {
   name: "PageExplorer",
+  components: {
+    SpaceMini,
+  },
   setup() {
     const { query } = useRoute();
     const loading = ref(false);
@@ -67,6 +82,7 @@ export default {
     const type = ref("");
     const country = ref("");
     const city = ref("");
+    const spaces = ref([]);
 
     if (query.type) {
       loading.value = true;
@@ -74,12 +90,28 @@ export default {
       loading.value = false;
     }
 
+    supabase
+      .from("spaces")
+      .select("* , photos(url)")
+      .then(({ data, error }) => {
+        if (error) {
+          Notify.create({
+            color: "negative",
+            message: error.message,
+          });
+          return;
+        }
+
+        spaces.value = data;
+      });
+
     return {
       showMap,
       loading,
       type,
       country,
       city,
+      spaces,
     };
   },
 };
