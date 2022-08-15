@@ -56,7 +56,12 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
-      env: require('dotenv').config().parsed,
+      env: {
+        SUPABASE_PROJECT_URL: process.env.SUPABASE_PROJECT_URL,
+        SUPABASE_ANON_PUBLIC_KEY: process.env.SUPABASE_ANON_PUBLIC_KEY,
+        ACCESS_TOKEN: process.env.ACCESS_TOKEN,
+        ...require('dotenv').config().parsed,
+      },
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16'
