@@ -2,7 +2,9 @@
   <q-page padding>
     <q-form @submit="submit" class="q-gutter-md">
       <q-card flat bordered>
-        <q-card-section style="height: 200px"> images import </q-card-section>
+        <q-card-section>
+          <image-loader @files="saveLocalImages" />
+        </q-card-section>
       </q-card>
       <q-card class="q-mt-md" flat bordered>
         <q-card-section class="q-gutter-md">
@@ -237,12 +239,14 @@ import SpaceTypeSelection from "components/Space/TypeSelectionCard.vue";
 import LocationPicker from "components/Map/LocationPicker.vue";
 import countriesJSON from "assets/countries.min.json";
 import supabase from "boot/supabase";
+import imageLoader from "components/Space/ImageLoader.vue";
 
 export default {
   name: "PageCreateSpace",
   components: {
     SpaceTypeSelection,
     LocationPicker,
+    imageLoader,
   },
   setup() {
     const space = ref({
@@ -264,6 +268,28 @@ export default {
     const filteredCountries = ref([]);
     const filteredCities = ref([]);
     const loading = ref(false);
+    const spaceImages = ref([]);
+
+    const uploadImages = async (spaceId) => {
+      const publicUrl = [];
+
+      for (let image of spaceImages.value) {
+        const { data, error } = await supabase.storage
+          .from("spaces-images")
+          .upload(image.name, image.file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+
+        if (data) {
+          publicUrl.push({ space_id: spaceId, url: data.key });
+        }
+      }
+
+      await supabase.from("photos").insert(publicUrl);
+
+      return;
+    };
 
     return {
       space,
@@ -272,6 +298,7 @@ export default {
       countriesJSON,
       success,
       loading,
+      spaceImages,
       spaceTypes: [
         {
           img: "/images/illustrations/co-working.png",
@@ -353,12 +380,16 @@ export default {
         }
 
         if (data) {
+          uploadImages(data[0].id);
           success.value = true;
         }
 
         setTimeout(() => {
-          success.value = false;
+          loading.value = false;
         }, 3000);
+      },
+      saveLocalImages(images) {
+        spaceImages.value = images;
       },
     };
   },
