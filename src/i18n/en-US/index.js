@@ -40,6 +40,7 @@ export default {
       youSpaceIsNowAvailable: 'Your space is now available',
       afterPublishMessage: 'What`s next now? share with the world that you have a space available',
       internetSpeedExample: 'Example: 100Mb/s',
+      clickHereToUploadMultipleImages: 'Click here to upload multiple images',
     },
     error: {
       pleaseEnterValidPhoneNumber: 'Please enter valid phone number',
