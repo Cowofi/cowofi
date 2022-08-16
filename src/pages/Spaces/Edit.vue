@@ -3,7 +3,7 @@
     <q-form @submit="submit" class="q-gutter-md">
       <q-card flat bordered>
         <q-card-section>
-          <image-loader @files="saveLocalImages" />
+          <image-loader @files="saveLocalImages" :input-photos="space.photos" />
         </q-card-section>
       </q-card>
       <q-card class="q-mt-md" flat bordered>
@@ -244,7 +244,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "stores/Auth";
 
 export default {
-  name: "PageCreateSpace",
+  name: "PageEditSpace",
   components: {
     SpaceTypeSelection,
     LocationPicker,
@@ -274,10 +274,12 @@ export default {
     const router = useRouter();
     const spaceId = useRoute().params.spaceId;
     const authStore = useAuthStore();
+    const asssetsRoute =
+      process.env.SUPABASE_PROJECT_URL + "/storage/v1/object/public/";
 
     supabase
       .from("spaces")
-      .select("*, photos(url)")
+      .select("*, photos(id, url)")
       .eq("id", spaceId)
       .then(({ error, data }) => {
         if (data) {
@@ -297,6 +299,13 @@ export default {
             privateOffice: data[0].private_office,
             internetSpeed: data[0].internet_speed,
           };
+
+          space.value.photos = data[0].photos.map((photo) => {
+            return {
+              url: asssetsRoute + photo.url,
+              id: photo.id,
+            };
+          });
         } else {
           Notify.create({
             color: "negative",
@@ -310,6 +319,11 @@ export default {
       const publicUrl = [];
 
       for (let image of spaceImages.value) {
+        if (image.id) {
+          // jump to next image if image is already uploaded
+          continue;
+        }
+
         const { data, error } = await supabase.storage
           .from("spaces-images")
           .upload(image.name, image.file, {
@@ -417,7 +431,7 @@ export default {
         }
 
         if (data) {
-          //uploadImages(data[0].id);
+          uploadImages(data[0].id);
           success.value = true;
         }
 
