@@ -1,13 +1,20 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header>
-      <q-toolbar class="bg-secondary">
-        <q-toolbar-title> Logo here </q-toolbar-title>
+      <q-toolbar class="bg-white">
+        <q-toolbar-title>
+          <q-img
+            src="/logotipo.png"
+            spinner-color="white"
+            style="height: 70px; max-width: 170px"
+            class="q-ma-xs"
+        /></q-toolbar-title>
         <q-btn
           v-for="link in essentialLinks"
           :key="link.title"
           stretch
           flat
+          text-color="secondary"
           :label="link.title"
           :to="link.route"
         />
@@ -29,8 +36,9 @@
           <q-btn
             push
             to="/auth/login"
-            color="warning"
-            text-color="black"
+            color="primary"
+            text-color="white"
+            class="q-ml-md"
             :label="$t('common.joinNow')"
           />
         </template>
