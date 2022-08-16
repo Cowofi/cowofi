@@ -2,12 +2,7 @@
   <q-page padding>
     <q-card flat style="max-width: 300px" class="q-mx-auto q-mt-lg">
       <q-card-section class="text-center">
-        <q-img
-          src="/images/main-logo.png"
-          spinner-color="white"
-          style="height: 100px; max-width: 100px"
-        />
-        <div class="text-bold">Cowofi</div>
+        <q-img src="/logotipo.png" spinner-color="white" />
       </q-card-section>
 
       <q-form @submit="loginWithEmailAndPassword()" class="q-gutter-md">
