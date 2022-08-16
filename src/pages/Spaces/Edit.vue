@@ -240,7 +240,8 @@ import LocationPicker from "components/Map/LocationPicker.vue";
 import countriesJSON from "assets/countries.min.json";
 import supabase from "boot/supabase";
 import imageLoader from "components/Space/ImageLoader.vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { useAuthStore } from "stores/Auth";
 
 export default {
   name: "PageCreateSpace",
@@ -270,7 +271,9 @@ export default {
     const filteredCities = ref([]);
     const loading = ref(false);
     const spaceImages = ref([]);
+    const router = useRouter();
     const spaceId = useRoute().params.spaceId;
+    const authStore = useAuthStore();
 
     supabase
       .from("spaces")
@@ -278,6 +281,15 @@ export default {
       .eq("id", spaceId)
       .then(({ error, data }) => {
         if (data) {
+          if (data[0].userid !== authStore.user.id) {
+            Notify.create({
+              color: "negative",
+              textColor: "white",
+              message: "You are not allowed to edit this space",
+            });
+            router.push("/");
+          }
+
           space.value = {
             ...data[0],
             opensAt: data[0].opens_at,
