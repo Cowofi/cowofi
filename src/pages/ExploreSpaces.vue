@@ -53,9 +53,9 @@
     </q-card>
     <q-card flat bordered class="q-mt-md">
       <q-card-section>
-        <div class="row">
+        <div class="row q-col-gutter-md">
           <div class="col-12" v-for="space in spaces" :key="space.id">
-            <space-mini :space="space" />
+            <space-mini class="q-mx-auto" :space="space" />
           </div>
         </div>
       </q-card-section>
