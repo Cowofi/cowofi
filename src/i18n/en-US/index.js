@@ -34,6 +34,7 @@ export default {
     closesAt: 'Closes At',
     spaceInformation: 'Space Information',
     spaceTypes: 'Space Types',
+    or: 'or',
   },
   messages: {
     information: {
@@ -55,6 +56,7 @@ export default {
     publish: 'Publish',
     goHome: 'Go Home',
     viewSpace: 'View Space',
-    exploreSpaces: 'Explore Space'
+    exploreSpaces: 'Explore Space',
+    postSpace: 'Post Space',
   }
 }
