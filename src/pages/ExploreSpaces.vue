@@ -61,6 +61,9 @@
         />
         <p>{{ $t("messages.information.noSpaceFound") }}...</p>
       </q-card-section>
+      <q-card-section v-if="loading" class="text-center q-my-lg">
+        <q-spinner color="primary" size="3em" />
+      </q-card-section>
       <q-card-section v-if="spaces.length > 0">
         <div class="row q-col-gutter-md">
           <div class="col-12" v-for="space in spaces" :key="space.id">
