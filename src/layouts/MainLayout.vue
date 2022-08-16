@@ -9,7 +9,8 @@
             style="height: 70px; max-width: 170px"
             class="q-ma-xs cursor-pointer"
             @click="$router.push('/')"
-        /></q-toolbar-title>
+          />
+        </q-toolbar-title>
         <q-btn
           v-for="link in essentialLinks"
           :key="link.title"
