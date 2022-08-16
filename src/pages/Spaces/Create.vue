@@ -47,8 +47,7 @@
             lazy-rules
             :rules="[
               (val) =>
-                (val && val.length > 0) ||
-                $t('messages.error.pleaseEnterPrice'),
+                (val && val > 0) || $t('messages.error.pleaseEnterPrice'),
             ]"
           />
 
