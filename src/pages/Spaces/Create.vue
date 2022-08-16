@@ -220,6 +220,7 @@
             to="/"
           />
           <q-btn
+            :to="`/spaces/view/${space.id}`"
             push
             color="primary"
             text-color="black"
@@ -379,6 +380,7 @@ export default {
         }
 
         if (data) {
+          space.value.id = data.id;
           uploadImages(data[0].id);
           success.value = true;
         }
