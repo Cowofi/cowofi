@@ -36,7 +36,7 @@ export default {
     spaceTypes: 'Space Types',
     or: 'or',
     allCities: 'All Cities',
-    allTypes: 'All Types',
+    all: 'All',
   },
   messages: {
     information: {
