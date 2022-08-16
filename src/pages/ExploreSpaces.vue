@@ -34,6 +34,7 @@
             style="width: 250px"
             @filter="filterCities"
             use-input
+            @update:model-value="onChangeCity"
           />
         </div>
       </q-card-section>
@@ -94,7 +95,7 @@ export default {
       }
     }
 
-    const findSpaces = async ({ type, country }) => {
+    const findSpaces = async ({ type, country, city }) => {
       loading.value = true;
       let query = supabase.from("spaces").select("* , photos(url)");
 
@@ -104,6 +105,10 @@ export default {
 
       if (country !== "All" && country !== undefined) {
         query = query.eq("country", country);
+      }
+
+      if (city !== "All" && city !== undefined) {
+        query = query.eq("city", city);
       }
 
       const { data, error } = await query;
@@ -149,23 +154,26 @@ export default {
       filterCities(val, update) {
         if (val === "") {
           update(() => {
-            filteredCities.value = ["All", countriesJSON[space.value.country]];
+            filteredCities.value = ["All", ...countriesJSON[country.value]];
           });
           return;
         }
 
         update(() => {
           const needle = val.toLowerCase();
-          filteredCities.value = countriesJSON[space.value.country].filter(
+          filteredCities.value = countriesJSON[country.value].filter(
             (v) => v.toLowerCase().indexOf(needle) > -1
           );
         });
       },
       onChangeType(type) {
-        findSpaces({ type, country: country.value });
+        findSpaces({ type, country: country.value, city: city.value });
       },
       onChangeCountry(country) {
-        findSpaces({ type: type.value, country });
+        findSpaces({ type: type.value, city: city.value, country });
+      },
+      onChangeCity(city) {
+        findSpaces({ type: type.value, country: country.value, city });
       },
     };
   },
