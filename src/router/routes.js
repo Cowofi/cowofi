@@ -20,7 +20,8 @@ const routes = [
     path: '/spaces',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: 'create', component: () => import('pages/Spaces/Create.vue') }
+      { path: 'create', component: () => import('pages/Spaces/Create.vue') },
+      { path: 'view/:spaceId', component: () => import('src/pages/Spaces/CompleteDetails.vue') },
     ]
   },
 
