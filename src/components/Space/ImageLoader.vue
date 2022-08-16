@@ -45,17 +45,35 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { v4 } from "uuid";
 
 export default {
   name: "ComponentImageLoader",
-  setup(_, { emit }) {
+  props: {
+    inputPhotos: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  setup(props, { emit }) {
     const convertedPhotoFiles = ref([]);
     const originalPhotoFiles = ref([]);
     const getImageExtension = (fileName) => {
       return fileName.split(".").pop();
     };
+
+    watch(
+      () => props.inputPhotos,
+      (currentValue, oldValue) => {
+        originalPhotoFiles.value = currentValue.map((photo) => ({
+          url: photo.url,
+          id: photo.id,
+          name: photo.url.split("/").pop(),
+        }));
+        convertedPhotoFiles.value = currentValue.map((photo) => photo.url);
+      }
+    );
 
     return {
       convertedPhotoFiles,
