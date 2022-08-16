@@ -8,9 +8,21 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 export default {
   name: "locationPicker",
+  props: {
+    lngLat: {
+      type: String,
+      required: false,
+    },
+  },
   created() {
     setTimeout(() => {
       this.mapBoxInit();
+      if (this.lngLat) {
+        this.map.setCenter([
+          this.lngLat.split(",")[1],
+          this.lngLat.split(",")[0],
+        ]);
+      }
     }, 1000);
   },
   data() {
