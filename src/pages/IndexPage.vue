@@ -15,11 +15,21 @@
       </div>
       <div class="col-12">
         <q-btn
+          push
           color="primary"
           text-color="black"
           :label="$t('action.exploreSpaces')"
           icon="eva-search-outline"
           to="/explorer"
+        />
+        <span class="q-mx-md">{{ $t("common.or") }}</span>
+        <q-btn
+          push
+          color="white"
+          text-color="black"
+          :label="$t('action.postSpace')"
+          icon="eva-plus-outline"
+          to="/spaces/create"
         />
       </div>
     </div>
