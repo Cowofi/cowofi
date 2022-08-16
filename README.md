@@ -11,7 +11,7 @@ CoWoFi is an application that helps managers, executives and the general public 
 Not only for rent, if you have a beautiful workspace that you understand can be enjoyed by others, you can publish it and earn extra money. The best is always to share
 
 ![UI Start](https://user-images.githubusercontent.com/77460748/184554106-4b5c9a23-1674-4e9c-8ff7-0ec98f331ed3.png)
-![Screen Shot 2022-08-14 at 4 18 59 PM](https://user-images.githubusercontent.com/77460748/184554150-f4cc3ede-a958-46c6-b3ea-b6ab737ec8c6.png)
+
 
 ## How to install
 
@@ -47,8 +47,7 @@ If you decide to use this app for a production enviroment just run the bash comm
 # Enviroments variables
 
 - **SUPABASE_PROJECT_URL**: the variable of your endpoint for al the request needed to do at Data Base
-- **SUPABASE_ANON_PUBLIC_KEY**:
-- **SUPER_BASE_BD_PASSWORD**: The Data Base Password
+- **SUPABASE_ANON_PUBLIC_KEY**: the public API key
 
 For more information about these enviroments variables [Superbae Documentaion](https://supabase.com/docs/)
 
