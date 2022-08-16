@@ -1,5 +1,11 @@
 <template>
-  <q-card class="cursor-pointer" flat bordered style="max-width: 650px">
+  <q-card
+    @click="$router.push(`/spaces/view/${space.id}`)"
+    class="cursor-pointer"
+    flat
+    bordered
+    style="max-width: 650px"
+  >
     <q-card-section>
       <div class="row q-col-gutter-md space-mini-container">
         <div class="col-4">
@@ -65,7 +71,7 @@
 
 <script>
 import spaceTypes from "src/utils/spaceTypes";
-import dayjs from "dayjs";
+import { parseTime } from "src/utils/time";
 
 export default {
   name: "ComponentSpaceMini",
@@ -79,9 +85,6 @@ export default {
     const spaceType = spaceTypes.find(
       (type) => type.value === props.space.type
     );
-    const parseTime = (time) => {
-      return dayjs("2012-01-25" + time).format("hh:mm A");
-    };
 
     return {
       spaceType,
