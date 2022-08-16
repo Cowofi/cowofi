@@ -50,7 +50,18 @@
       </q-card-section>
     </q-card>
     <q-card flat bordered class="q-mt-md">
-      <q-card-section>
+      <q-card-section
+        v-if="spaces.length === 0 && !loading"
+        class="text-center"
+      >
+        <img
+          src="images/illustrations/no_results.png"
+          alt="empty"
+          width="200"
+        />
+        <p>{{ $t("messages.information.noSpaceFound") }}...</p>
+      </q-card-section>
+      <q-card-section v-if="spaces.length > 0">
         <div class="row q-col-gutter-md">
           <div class="col-12" v-for="space in spaces" :key="space.id">
             <space-mini class="q-mx-auto" :space="space" />
