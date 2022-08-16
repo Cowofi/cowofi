@@ -282,7 +282,7 @@ export default {
           });
 
         if (data) {
-          publicUrl.push({ space_id: spaceId, url: data.key });
+          publicUrl.push({ space_id: spaceId, url: data.Key });
         }
       }
 

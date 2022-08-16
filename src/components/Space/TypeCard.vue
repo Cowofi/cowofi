@@ -44,5 +44,6 @@ export default {
 <style>
 .type-card-container {
   max-width: 250px;
+  height: 120px;
 }
 </style>

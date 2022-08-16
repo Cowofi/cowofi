@@ -7,8 +7,10 @@
             src="/logotipo.png"
             spinner-color="white"
             style="height: 70px; max-width: 170px"
-            class="q-ma-xs"
-        /></q-toolbar-title>
+            class="q-ma-xs cursor-pointer"
+            @click="$router.push('/')"
+          />
+        </q-toolbar-title>
         <q-btn
           v-for="link in essentialLinks"
           :key="link.title"
@@ -19,7 +21,7 @@
           :to="link.route"
         />
         <template v-if="authStore.user.id">
-          <q-avatar class="cursor-pointer" color="warning" text-color="white">
+          <q-avatar class="cursor-pointer" color="primary" text-color="white">
             {{ authStore.user.user_metadata.full_name.substring(0, 1) }}
             <q-menu>
               <q-list style="min-width: 100px">

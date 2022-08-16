@@ -17,12 +17,7 @@
     <template v-else>
       <q-card flat style="max-width: 400px" class="q-mx-auto q-mt-lg">
         <q-card-section class="text-center">
-          <q-img
-            src="images/main-logo.png"
-            spinner-color="white"
-            style="height: 100px; max-width: 100px"
-          />
-          <div class="text-bold">Cowofi</div>
+          <q-img src="/logotipo.png" spinner-color="white" />
         </q-card-section>
         <q-card-section>
           <q-form @submit="onSubmit" class="q-gutter-md">
