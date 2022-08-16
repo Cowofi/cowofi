@@ -19,18 +19,21 @@
           <q-select
             outlined
             v-model="country"
-            :options="[]"
+            :options="filteredCountries"
             :label="$t('common.country')"
             style="width: 250px"
-            dropdown-icon="eva-arrow-down-outline"
+            @filter="filterCountries"
+            use-input
+            @update:model-value="onChangeCountry"
           />
           <q-select
             outlined
             v-model="city"
-            :options="[]"
+            :options="filteredCities"
             :label="$t('common.city')"
             style="width: 250px"
-            dropdown-icon="eva-arrow-down-outline"
+            @filter="filterCities"
+            use-input
           />
         </div>
       </q-card-section>
@@ -65,6 +68,7 @@ import { useI18n } from "vue-i18n";
 import supabase from "boot/supabase";
 import SpaceMini from "components/Space/SpaceMini.vue";
 import spaceTypes from "src/utils/spaceTypes";
+import countriesJSON from "assets/countries.min.json";
 
 export default {
   name: "PageExplorer",
@@ -80,6 +84,9 @@ export default {
     const city = ref("All");
     const spaces = ref([]);
     const $t = useI18n().t;
+    const countriesArray = Object.keys(countriesJSON).map((key) => key);
+    const filteredCountries = ref([]);
+    const filteredCities = ref([]);
 
     if (query.type) {
       if (spaceTypes.find((t) => t.value === query.type)) {
@@ -87,12 +94,16 @@ export default {
       }
     }
 
-    const findSpaces = async ({ type }) => {
+    const findSpaces = async ({ type, country }) => {
       loading.value = true;
       let query = supabase.from("spaces").select("* , photos(url)");
 
-      if (type !== "All") {
+      if (type !== "All" && type !== undefined) {
         query = query.eq("type", type);
+      }
+
+      if (country !== "All" && country !== undefined) {
+        query = query.eq("country", country);
       }
 
       const { data, error } = await query;
@@ -116,13 +127,45 @@ export default {
       type,
       country,
       city,
+      filteredCountries,
+      filteredCities,
       spaces,
-      spaceTypes: [
-        { value: "All", title: $t("common.allTypes") },
-        ...spaceTypes,
-      ],
+      spaceTypes: [{ value: "All", title: $t("common.all") }, ...spaceTypes],
+      filterCountries(val, update) {
+        if (val === "") {
+          update(() => {
+            filteredCountries.value = ["All", ...countriesArray];
+          });
+          return;
+        }
+
+        update(() => {
+          const needle = val.toLowerCase();
+          filteredCountries.value = countriesArray.filter(
+            (v) => v.toLowerCase().indexOf(needle) > -1
+          );
+        });
+      },
+      filterCities(val, update) {
+        if (val === "") {
+          update(() => {
+            filteredCities.value = ["All", countriesJSON[space.value.country]];
+          });
+          return;
+        }
+
+        update(() => {
+          const needle = val.toLowerCase();
+          filteredCities.value = countriesJSON[space.value.country].filter(
+            (v) => v.toLowerCase().indexOf(needle) > -1
+          );
+        });
+      },
       onChangeType(type) {
-        findSpaces({ type });
+        findSpaces({ type, country: country.value });
+      },
+      onChangeCountry(country) {
+        findSpaces({ type: type.value, country });
       },
     };
   },
