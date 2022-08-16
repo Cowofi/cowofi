@@ -33,6 +33,7 @@ export default {
     opensAt: 'Opens At',
     closesAt: 'Closes At',
     spaceInformation: 'Space Information',
+    spaceTypes: 'Space Types',
   },
   messages: {
     information: {
