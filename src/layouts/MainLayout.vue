@@ -7,7 +7,8 @@
             src="/logotipo.png"
             spinner-color="white"
             style="height: 70px; max-width: 170px"
-            class="q-ma-xs"
+            class="q-ma-xs cursor-pointer"
+            @click="$router.push('/')"
         /></q-toolbar-title>
         <q-btn
           v-for="link in essentialLinks"
