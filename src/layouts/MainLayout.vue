@@ -20,7 +20,7 @@
           :to="link.route"
         />
         <template v-if="authStore.user.id">
-          <q-avatar class="cursor-pointer" color="warning" text-color="white">
+          <q-avatar class="cursor-pointer" color="primary" text-color="white">
             {{ authStore.user.user_metadata.full_name.substring(0, 1) }}
             <q-menu>
               <q-list style="min-width: 100px">
