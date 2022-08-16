@@ -53,6 +53,12 @@ const routes = [
           isPublic: true
         }
       },
+      {
+        path: 'edit/:spaceId',
+        component: () => import('src/pages/Spaces/Edit.vue'), meta: {
+          isPublic: false
+        }
+      }
     ]
   },
 
