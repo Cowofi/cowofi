@@ -3,7 +3,11 @@
     <q-form @submit="submit" class="q-gutter-md">
       <q-card flat bordered>
         <q-card-section>
-          <image-loader @files="saveLocalImages" />
+          <image-loader
+            @files="saveLocalImages"
+            @removed="saveLocalImagesToDelete"
+            :input-photos="space.photos"
+          />
         </q-card-section>
       </q-card>
       <q-card class="q-mt-md" flat bordered>
@@ -44,7 +48,6 @@
             v-model="space.price"
             outlined
             type="number"
-            lazy-rules
             :rules="[
               (val) =>
                 (val && val > 0) || $t('messages.error.pleaseEnterPrice'),
@@ -176,6 +179,7 @@
           >
             <location-picker
               class="bg-white"
+              :lngLat="space.location"
               @location="
                 (coordinates) =>
                   (space.location = `${coordinates.latitude},${coordinates.longitude}`)
@@ -240,9 +244,11 @@ import LocationPicker from "components/Map/LocationPicker.vue";
 import countriesJSON from "assets/countries.min.json";
 import supabase from "boot/supabase";
 import imageLoader from "components/Space/ImageLoader.vue";
+import { useRoute, useRouter } from "vue-router";
+import { useAuthStore } from "stores/Auth";
 
 export default {
-  name: "PageCreateSpace",
+  name: "PageEditSpace",
   components: {
     SpaceTypeSelection,
     LocationPicker,
@@ -269,11 +275,60 @@ export default {
     const filteredCities = ref([]);
     const loading = ref(false);
     const spaceImages = ref([]);
+    const router = useRouter();
+    const spaceId = useRoute().params.spaceId;
+    const authStore = useAuthStore();
+    const asssetsRoute =
+      process.env.SUPABASE_PROJECT_URL + "/storage/v1/object/public/";
+    const imagesToDelete = ref([]);
+
+    supabase
+      .from("spaces")
+      .select("*, photos(id, url)")
+      .eq("id", spaceId)
+      .then(({ error, data }) => {
+        if (data) {
+          if (data[0].userid !== authStore.user.id) {
+            Notify.create({
+              color: "negative",
+              textColor: "white",
+              message: "You are not allowed to edit this space",
+            });
+            router.push("/");
+          }
+
+          space.value = {
+            ...data[0],
+            opensAt: data[0].opens_at,
+            closesAt: data[0].closes_at,
+            privateOffice: data[0].private_office,
+            internetSpeed: data[0].internet_speed,
+          };
+
+          space.value.photos = data[0].photos.map((photo) => {
+            return {
+              url: asssetsRoute + photo.url,
+              id: photo.id,
+            };
+          });
+        } else {
+          Notify.create({
+            color: "negative",
+            message: error.message,
+          });
+        }
+        loading.value = false;
+      });
 
     const uploadImages = async (spaceId) => {
       const publicUrl = [];
 
       for (let image of spaceImages.value) {
+        if (image.id) {
+          // jump to next image if image is already uploaded
+          continue;
+        }
+
         const { data, error } = await supabase.storage
           .from("spaces-images")
           .upload(image.name, image.file, {
@@ -353,8 +408,9 @@ export default {
       },
       async submit() {
         loading.value = true;
-        const { data, error } = await supabase.from("spaces").insert([
-          {
+        const { data, error } = await supabase
+          .from("spaces")
+          .update({
             description: space.value.description,
             phone: space.value.phone,
             price: space.value.price,
@@ -367,8 +423,8 @@ export default {
             country: space.value.country,
             city: space.value.city,
             location: space.value.location,
-          },
-        ]);
+          })
+          .match({ id: space.value.id });
 
         if (error) {
           Notify.create({
@@ -380,9 +436,14 @@ export default {
         }
 
         if (data) {
-          space.value.id = data.id;
           uploadImages(data[0].id);
           success.value = true;
+        }
+
+        if (imagesToDelete.value.length > 0) {
+          imagesToDelete.value.forEach(async (image) => {
+            await supabase.from("photos").delete().match({ id: image.id });
+          });
         }
 
         setTimeout(() => {
@@ -391,6 +452,11 @@ export default {
       },
       saveLocalImages(images) {
         spaceImages.value = images;
+      },
+      saveLocalImagesToDelete(image) {
+        if (image.id) {
+          imagesToDelete.value.push(image);
+        }
       },
     };
   },

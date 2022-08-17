@@ -12,6 +12,16 @@
         </q-carousel>
       </q-card-section>
       <q-card-section>
+        <q-btn
+          v-if="authStore.user.id === space.userid"
+          :to="'/spaces/edit/' + space.id"
+          push
+          class="q-mb-md"
+          icon="eva-edit-outline"
+          color="primary"
+          text-color="black"
+          :label="$t('action.edit')"
+        />
         <p class="text-h5">
           {{ $t("common.basicInformation") }}
         </p>
@@ -86,6 +96,7 @@ import { Notify } from "quasar";
 import { parseTime } from "src/utils/time";
 import spaceTypes from "src/utils/spaceTypes";
 import ViewLocation from "components/Map/ViewLocation.vue";
+import { useAuthStore } from "stores/Auth";
 
 export default {
   name: "PageCompleteSpaceDetails",
@@ -98,6 +109,7 @@ export default {
     });
     const spaceId = useRoute().params.spaceId;
     const spaceType = ref(null);
+    const authStore = useAuthStore();
 
     supabase
       .from("spaces")
@@ -125,6 +137,7 @@ export default {
       slide: ref(1),
       parseTime,
       spaceType,
+      authStore,
     };
   },
 };

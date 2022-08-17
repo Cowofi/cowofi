@@ -61,5 +61,6 @@ export default {
     viewSpace: 'View Space',
     exploreSpaces: 'Explore Space',
     postSpace: 'Post Space',
+    edit: 'Edit',
   }
 }
