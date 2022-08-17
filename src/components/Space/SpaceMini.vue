@@ -8,14 +8,18 @@
   >
     <q-card-section>
       <div class="row q-col-gutter-md space-mini-container">
-        <div class="col-4">
+        <div class="col-xs-12 col-sm-4">
           <img
             v-if="space.photos[0]"
             :src="asssetsRoute + space.photos[0].url"
-            alt=""
+            :style="{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }"
           />
         </div>
-        <div class="col-8">
+        <div class="col-xs-12 col-sm-8">
           <div class="row">
             <div class="col-12">
               <p class="ellipsis-2-lines">

@@ -380,7 +380,7 @@ export default {
         }
 
         if (data) {
-          space.value.id = data.id;
+          space.value.id = data[0].id;
           uploadImages(data[0].id);
           success.value = true;
         }
