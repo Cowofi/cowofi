@@ -33,20 +33,16 @@ export default {
     opensAt: "Opens At",
     closesAt: "Closes At",
     spaceInformation: "Space Information",
-    spaceTypes: "Space Types",
-    or: "or",
-    allCities: "All Cities",
-    all: "All",
   },
   messages: {
     information: {
       findPerfectWorkingSpaceNearYou: "Find perfect working space near you",
+      startYourSearch: "Start your search",
       youSpaceIsNowAvailable: "Your space is now available",
       afterPublishMessage:
         "What`s next now? share with the world that you have a space available",
       internetSpeedExample: "Example: 100Mb/s",
       clickHereToUploadMultipleImages: "Click here to upload multiple images",
-      noSpaceFound: "No space found, maybe try with another city",
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
@@ -61,8 +57,6 @@ export default {
     publish: "Publish",
     goHome: "Go Home",
     viewSpace: "View Space",
-    exploreSpaces: "Explore Spaces",
-    postSpace: "Post Space",
-    edit: "Edit",
+    exploreSpaces: "Explore Space",
   },
 };

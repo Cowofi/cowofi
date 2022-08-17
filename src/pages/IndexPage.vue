@@ -6,23 +6,13 @@
           {{ $t("messages.information.findPerfectWorkingSpaceNearYou") }}!
         </p>
         <q-btn
-          push
           color="primary"
           text-color="white"
           :label="$t('action.exploreSpaces')"
           icon="eva-search-outline"
-          to="/explorer"
           rounded
-        />
-        <span class="q-mx-md">{{ $t("common.or") }}</span>
-        <q-btn
           push
-          color="white"
-          rounded
-          text-color="black"
-          :label="$t('action.postSpace')"
-          icon="eva-plus-outline"
-          to="/spaces/create"
+          to="/explorer"
         />
       </div>
       <div class="col-8 text-right">
@@ -32,18 +22,15 @@
           style="width: 600px"
         />
       </div>
-      <div class="col-12"></div>
     </div>
-    <div class="bg-secondary q-pa-md q-mt-lg spaceSection">
-      <div class="row q-col-gutter-md">
+    <div class="bg-teal-10 q-pa-md spaceSection">
+      <div class="row">
+        <p class="text-h5 text-bold text-white">
+          {{ $t("messages.information.startYourSearch") }}!
+        </p>
+      </div>
+      <div class="row">
         <div class="col-12">
-          <p class="text-h5 text-white">{{ $t("common.spaceTypes") }}</p>
-        </div>
-        <div
-          class="col-xs-12 col-sm-6 col-md-3"
-          v-for="spaceType in spaceTypes"
-          :key="spaceType.value"
-        >
           <space-type
             :title="spaceType.title"
             :to="`/explorer?type=${spaceType.value}`"
@@ -78,8 +65,8 @@ export default defineComponent({
 
 <style scoped>
 .spaceSection {
-  margin: -20px;
+  margin: -19px;
   margin-top: 10px;
-  min-height: 1000px;
+  min-height: calc(100vh - 64px);
 }
 </style>
