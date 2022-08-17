@@ -4,6 +4,14 @@
       <q-toolbar class="bg-white">
         <q-toolbar-title>
           <q-img
+            src="/images/illustrations/cowofi_isotipo.svg"
+            alt="Logotipo"
+            spinner-color="white"
+            style="height: 10%; width: 6%"
+            class="q-ma-xs cursor-pointer"
+            @click="$router.push('/')"
+          />
+          <q-img
             src="/images/illustrations/logotipo.png"
             alt="Logotipo"
             spinner-color="white"
