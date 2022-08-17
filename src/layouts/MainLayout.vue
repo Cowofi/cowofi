@@ -4,9 +4,10 @@
       <q-toolbar class="bg-white">
         <q-toolbar-title>
           <q-img
-            src="/logotipo.png"
+            src="/images/illustrations/logotipo.png"
+            alt="Logotipo"
             spinner-color="white"
-            style="height: 70px; max-width: 170px"
+            style="height: 20%; width: 15%"
             class="q-ma-xs cursor-pointer"
             @click="$router.push('/')"
           />
@@ -92,3 +93,5 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped></style>
