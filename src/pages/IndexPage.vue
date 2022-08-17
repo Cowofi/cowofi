@@ -5,41 +5,36 @@
         <p class="text-h3 text-bold">
           {{ $t("messages.information.findPerfectWorkingSpaceNearYou") }}!
         </p>
-      </div>
-      <div class="col-8 text-right">
-        <img
-          alt="work time illustration"
-          src="/images/illustrations/work_time.png"
-          :style="{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: -5,
-            position: 'relative',
-          }"
-        />
-      </div>
-      <div class="col-12">
         <q-btn
           push
           color="primary"
-          text-color="black"
+          text-color="white"
           :label="$t('action.exploreSpaces')"
           icon="eva-search-outline"
           to="/explorer"
+          rounded
         />
         <span class="q-mx-md">{{ $t("common.or") }}</span>
         <q-btn
           push
           color="white"
+          rounded
           text-color="black"
           :label="$t('action.postSpace')"
           icon="eva-plus-outline"
           to="/spaces/create"
         />
       </div>
+      <div class="col-8 text-right">
+        <img
+          alt="work time illustration"
+          src="/images/illustrations/work_time.png"
+          style="width: 600px"
+        />
+      </div>
+      <div class="col-12"></div>
     </div>
-    <div class="bg-secondary q-pa-md q-mt-lg">
+    <div class="bg-secondary q-pa-md q-mt-lg spaceSection">
       <div class="row q-col-gutter-md">
         <div class="col-12">
           <p class="text-h5 text-white">{{ $t("common.spaceTypes") }}</p>
@@ -80,3 +75,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.spaceSection {
+  margin: -20px;
+  margin-top: 10px;
+  min-height: 1000px;
+}
+</style>
