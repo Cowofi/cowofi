@@ -72,6 +72,17 @@
           {{ $t("common.opensAt") }} {{ parseTime(space.opens_at) }} -
           {{ $t("common.closesAt") }} {{ parseTime(space.closes_at) }}
         </div>
+        <div class="q-mt-md">
+          <q-btn
+            class="q-mr-sm"
+            unelevated
+            v-for="day in weekdays"
+            :key="day.value"
+            :color="isDayChecked(day.value) ? 'primary' : 'grey-3'"
+            :text-color="isDayChecked(day.value) ? 'white' : 'black'"
+            :label="day.label"
+          />
+        </div>
       </q-card-section>
     </q-card>
     <q-card flat bordered class="q-mt-md">
@@ -105,6 +116,7 @@ export default {
     const loading = ref(true);
     const space = ref({
       photos: [],
+      available_week_days: [],
       type: "work_office",
     });
     const spaceId = useRoute().params.spaceId;
@@ -138,6 +150,39 @@ export default {
       parseTime,
       spaceType,
       authStore,
+      weekdays: [
+        {
+          label: "Monday",
+          value: "monday",
+        },
+        {
+          label: "Tuesday",
+          value: "tuesday",
+        },
+        {
+          label: "Wednesday",
+          value: "wednesday",
+        },
+        {
+          label: "Thursday",
+          value: "thursday",
+        },
+        {
+          label: "Friday",
+          value: "friday",
+        },
+        {
+          label: "Saturday",
+          value: "saturday",
+        },
+        {
+          label: "Sunday",
+          value: "sunday",
+        },
+      ],
+      isDayChecked(day) {
+        return space.value.available_week_days.includes(day);
+      },
     };
   },
 };
