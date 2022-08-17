@@ -9,13 +9,12 @@
           <span class="text-bold">{{ title }}</span>
         </div>
         <div class="col-12">
-          {{ $t("action.viewMore") }}
           <q-btn
             :to="to"
             flat
-            round
+            :label="$t('action.viewMore')"
             text-color="black"
-            icon="eva-arrow-circle-right-outline"
+            icon-right="eva-arrow-circle-right-outline"
           />
         </div>
       </div>
