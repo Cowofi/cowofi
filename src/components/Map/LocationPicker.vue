@@ -4,7 +4,6 @@
 
 <script>
 import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 
 export default {
   name: "locationPicker",
@@ -80,6 +79,7 @@ export default {
 };
 </script>
 <style lang="css">
+@import "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.css";
 .mapboxgl-map {
   position: absolute;
   top: 0;
