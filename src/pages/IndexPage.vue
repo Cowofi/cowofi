@@ -25,7 +25,7 @@
     </div>
     <div class="bg-teal-10 q-pa-md spaceSection">
       <div class="row">
-        <p class="text-h5 text-bold text-white">
+        <p class="text-h4 text-bold text-white">
           {{ $t("messages.information.startYourSearch") }}!
         </p>
       </div>
