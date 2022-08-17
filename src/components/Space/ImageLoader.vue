@@ -91,6 +91,7 @@ export default {
         emit("files", originalPhotoFiles.value);
       },
       removePhotoFile(index) {
+        emit("removed", originalPhotoFiles.value[index]);
         convertedPhotoFiles.value.splice(index, 1);
         originalPhotoFiles.value.splice(index, 1);
       },
