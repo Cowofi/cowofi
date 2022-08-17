@@ -3,7 +3,11 @@
     <q-form @submit="submit" class="q-gutter-md">
       <q-card flat bordered>
         <q-card-section>
-          <image-loader @files="saveLocalImages" :input-photos="space.photos" />
+          <image-loader
+            @files="saveLocalImages"
+            @removed="saveLocalImagesToDelete"
+            :input-photos="space.photos"
+          />
         </q-card-section>
       </q-card>
       <q-card class="q-mt-md" flat bordered>
@@ -276,6 +280,7 @@ export default {
     const authStore = useAuthStore();
     const asssetsRoute =
       process.env.SUPABASE_PROJECT_URL + "/storage/v1/object/public/";
+    const imagesToDelete = ref([]);
 
     supabase
       .from("spaces")
@@ -435,12 +440,23 @@ export default {
           success.value = true;
         }
 
+        if (imagesToDelete.value.length > 0) {
+          imagesToDelete.value.forEach(async (image) => {
+            await supabase.from("photos").delete().match({ id: image.id });
+          });
+        }
+
         setTimeout(() => {
           loading.value = false;
         }, 3000);
       },
       saveLocalImages(images) {
         spaceImages.value = images;
+      },
+      saveLocalImagesToDelete(image) {
+        if (image.id) {
+          imagesToDelete.value.push(image);
+        }
       },
     };
   },
