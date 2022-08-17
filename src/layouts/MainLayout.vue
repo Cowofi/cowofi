@@ -4,9 +4,9 @@
       <q-toolbar class="bg-white">
         <q-toolbar-title>
           <q-img
-            src="/logotipo.png"
+            src="../assets/illustrations/logotipo_vector.png"
             spinner-color="white"
-            style="height: 70px; max-width: 170px"
+            style="width: 167px; height: 32px"
             class="q-ma-xs"
         /></q-toolbar-title>
         <q-btn
