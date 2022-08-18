@@ -80,7 +80,12 @@
         </div>
         <div class="q-mt-md">
           <q-btn
-            @click="showScheduleForm = true"
+            v-if="authStore.user.id !== space.userid"
+            @click="
+              authStore.user.id
+                ? (showScheduleForm = true)
+                : $router.push('/login')
+            "
             push
             icon="eva-calendar-outline"
             color="primary"
