@@ -47,13 +47,8 @@
           <div class="col-10">
             {{ spaceType.title }}
             <template v-if="space.private_office">
-              <q-chip
-                color="primary"
-                text-color="white"
-                icon="eva-lock-outline"
-              >
-                {{ $t("common.privateOffice") }}
-              </q-chip>
+              -
+              <span class="text-primary">{{ $t("common.privateOffice") }}</span>
             </template>
           </div>
         </div>
@@ -76,12 +71,55 @@
           <q-btn
             class="q-mr-sm"
             unelevated
-            v-for="day in weekdays"
-            :key="day.value"
-            :color="isDayChecked(day.value) ? 'primary' : 'grey-3'"
-            :text-color="isDayChecked(day.value) ? 'white' : 'black'"
-            :label="day.label"
+            v-for="day in space.available_week_days"
+            :key="day"
+            color="secondary"
+            text-color="white"
+            :label="getWeekDayLabel(day)"
           />
+        </div>
+        <div class="q-mt-md">
+          <q-btn
+            @click="showScheduleForm = true"
+            push
+            icon="eva-calendar-outline"
+            color="primary"
+            text-color="white"
+            :label="$t('action.reserveSpace')"
+          />
+          <q-dialog v-model="showScheduleForm">
+            <q-card style="width: 700px; max-width: 80vw">
+              <q-card-section class="row items-center q-pb-none">
+                <div class="text-h6">{{ $t("action.reserveSpace") }}</div>
+                <q-space />
+                <q-btn
+                  icon="eva-close-outline"
+                  flat
+                  round
+                  dense
+                  v-close-popup
+                />
+              </q-card-section>
+              <q-card-section>
+                <q-icon
+                  class="q-mb-xs q-mr-xs"
+                  size="xs"
+                  color="blue"
+                  name="eva-info-outline"
+                />
+                <span>
+                  {{ $t("messages.information.reversationDescription") }}
+                </span>
+              </q-card-section>
+
+              <q-card-section class="q-pt-md">
+                <schedule-form-creation
+                  @create-schedule="createSchedule"
+                  :loading="loading"
+                />
+              </q-card-section>
+            </q-card>
+          </q-dialog>
         </div>
       </q-card-section>
     </q-card>
@@ -104,14 +142,15 @@ import supabase from "boot/supabase";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { Notify } from "quasar";
-import { parseTime } from "src/utils/time";
+import { parseTime, weekdays } from "src/utils/time";
 import spaceTypes from "src/utils/spaceTypes";
 import ViewLocation from "components/Map/ViewLocation.vue";
 import { useAuthStore } from "stores/Auth";
+import ScheduleFormCreation from "components/Schedule/CreateForm.vue";
 
 export default {
   name: "PageCompleteSpaceDetails",
-  components: { ViewLocation },
+  components: { ViewLocation, ScheduleFormCreation },
   setup() {
     const loading = ref(true);
     const space = ref({
@@ -121,6 +160,7 @@ export default {
     });
     const spaceId = useRoute().params.spaceId;
     const spaceType = ref(null);
+    const showScheduleForm = ref(false);
     const authStore = useAuthStore();
 
     supabase
@@ -150,38 +190,44 @@ export default {
       parseTime,
       spaceType,
       authStore,
-      weekdays: [
-        {
-          label: "Monday",
-          value: "monday",
-        },
-        {
-          label: "Tuesday",
-          value: "tuesday",
-        },
-        {
-          label: "Wednesday",
-          value: "wednesday",
-        },
-        {
-          label: "Thursday",
-          value: "thursday",
-        },
-        {
-          label: "Friday",
-          value: "friday",
-        },
-        {
-          label: "Saturday",
-          value: "saturday",
-        },
-        {
-          label: "Sunday",
-          value: "sunday",
-        },
-      ],
+      showScheduleForm,
+      loading,
+      getWeekDayLabel(day) {
+        return weekdays.find((d) => d.value === day).label;
+      },
       isDayChecked(day) {
         return space.value.available_week_days.includes(day);
+      },
+      createSchedule({ fromDate, toDate, fromTime, toTime }) {
+        const { id: spaceId } = space.value;
+
+        loading.value = true;
+        supabase
+          .from("schedules")
+          .insert({
+            space_id: spaceId,
+            from_date: fromDate,
+            to_date: toDate,
+            from_time: fromTime,
+            to_time: toTime,
+          })
+          .then(({ error, data }) => {
+            if (data) {
+              Notify.create({
+                color: "positive",
+                message: "Schedule created successfully",
+              });
+              showScheduleForm.value = false;
+            } else {
+              Notify.create({
+                color: "negative",
+                message: error.message,
+              });
+            }
+          })
+          .finally(() => {
+            loading.value = false;
+          });
       },
     };
   },
