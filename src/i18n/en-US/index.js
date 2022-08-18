@@ -37,6 +37,13 @@ export default {
     or: 'or',
     allCities: 'All Cities',
     all: 'All',
+    fromDate: 'From Date',
+    toDate: 'To Date',
+    fromTime: 'From Time',
+    toTime: 'To Time',
+    date: 'Date',
+    time: 'Time',
+    fromAndtoDate: 'From and to date',
   },
   messages: {
     information: {
@@ -62,5 +69,8 @@ export default {
     exploreSpaces: 'Explore Space',
     postSpace: 'Post Space',
     edit: 'Edit',
+    reserveSpace: 'Reserve Space',
+    close: 'Close',
+    sendReservation: 'Send Reservation',
   }
 }
