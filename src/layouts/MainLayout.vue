@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header>
-      <q-toolbar class="bg-white">
+    <q-header class="bg-white">
+      <q-toolbar class="bg-white constrain-width">
         <q-toolbar-title>
           <q-img
             src="/logotipo.png"

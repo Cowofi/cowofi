@@ -145,6 +145,18 @@
               </template>
             </q-input>
           </div>
+          <div>
+            <q-btn
+              class="q-mr-sm"
+              unelevated
+              v-for="day in weekdays"
+              :key="day.value"
+              :color="isDayChecked(day.value) ? 'primary' : 'grey-3'"
+              :text-color="isDayChecked(day.value) ? 'white' : 'black'"
+              :label="day.label"
+              @click="toggleDay(day.value)"
+            />
+          </div>
         </q-card-section>
       </q-card>
       <q-card class="q-mt-md" flat bordered>
@@ -255,6 +267,13 @@ export default {
       internetSpeed: "",
       opensAt: "09:00",
       closesAt: "17:00",
+      availableWeekDays: [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+      ],
       price: 0,
       country: "",
       city: "",
@@ -321,6 +340,47 @@ export default {
           value: "restaurant",
         },
       ],
+      weekdays: [
+        {
+          label: "Monday",
+          value: "monday",
+        },
+        {
+          label: "Tuesday",
+          value: "tuesday",
+        },
+        {
+          label: "Wednesday",
+          value: "wednesday",
+        },
+        {
+          label: "Thursday",
+          value: "thursday",
+        },
+        {
+          label: "Friday",
+          value: "friday",
+        },
+        {
+          label: "Saturday",
+          value: "saturday",
+        },
+        {
+          label: "Sunday",
+          value: "sunday",
+        },
+      ],
+      toggleDay(day) {
+        space.value.availableWeekDays.includes(day)
+          ? space.value.availableWeekDays.splice(
+              space.value.availableWeekDays.indexOf(day),
+              1
+            )
+          : space.value.availableWeekDays.push(day);
+      },
+      isDayChecked(day) {
+        return space.value.availableWeekDays.includes(day);
+      },
       filterCountries(val, update) {
         if (val === "") {
           update(() => {
@@ -364,6 +424,7 @@ export default {
             private_office: space.value.privateOffice,
             opens_at: space.value.opensAt,
             closes_at: space.value.closesAt,
+            available_week_days: space.value.availableWeekDays,
             country: space.value.country,
             city: space.value.city,
             location: space.value.location,
