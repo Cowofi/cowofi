@@ -83,12 +83,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.spaceSection {
-  min-height: 1000px;
-  margin: -20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-</style>
