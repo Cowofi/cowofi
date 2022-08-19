@@ -20,8 +20,8 @@
             push
             color="white"
             rounded
+            :class="$q.screen.sm ? 'q-mt-md' : ''"
             text-color="black"
-            :class="$q.screen.xs ? '' : 'q-mt-md'"
             :label="$t('action.postSpace')"
             icon="eva-plus-outline"
             to="/spaces/create"
@@ -87,5 +87,8 @@ export default defineComponent({
 <style scoped>
 .spaceSection {
   min-height: 1000px;
+  margin: -20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
