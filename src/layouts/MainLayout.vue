@@ -4,9 +4,9 @@
       <q-toolbar class="bg-white constrain-width">
         <q-toolbar-title>
           <q-img
-            src="/logotipo.png"
+            src="/logotipo_vector.png"
             spinner-color="white"
-            style="max-width: 170px"
+            style="max-width: 120px"
             class="q-ma-xs cursor-pointer"
             @click="$router.push('/')"
           />
@@ -21,7 +21,11 @@
           :to="link.route"
         />
         <template v-if="authStore.user.id">
-          <q-avatar class="cursor-pointer" color="primary" text-color="white">
+          <q-avatar
+            class="cursor-pointer q-ml-xs"
+            color="primary"
+            text-color="white"
+          >
             {{ authStore.user.user_metadata.full_name.substring(0, 1) }}
             <q-menu>
               <q-list style="min-width: 100px">
