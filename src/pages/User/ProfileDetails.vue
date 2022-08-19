@@ -39,6 +39,11 @@
                     <space-mini class="q-mx-auto" :space="space" />
                   </div>
                 </div>
+                <div v-if="!loadingSpaces && spaces.length === 0">
+                  <p class="text-center text-grey">
+                    {{ $t("messages.information.youDontHaveAnySpaceCreated") }}
+                  </p>
+                </div>
               </q-card-section>
             </q-card>
           </div>
@@ -49,9 +54,16 @@
                 <div v-if="loadingSchedules" class="text-center q-my-lg">
                   <q-spinner color="primary" size="3em" />
                 </div>
-                <div v-for="schedule in schedules" :key="schedule.id">
-                  {{ schedule }}
+                <p>{{ $t("common.mySchedules") }}</p>
+                <div
+                  class="q-my-md"
+                  v-for="schedule in schedules"
+                  :key="schedule.id"
+                >
+                  <schedule-mini-card :schedule="schedule" />
                 </div>
+              </q-card-section>
+              <q-card-section>
                 <p>{{ $t("common.mySpaceSchedules") }}</p>
                 <div
                   v-for="schedule in schedulesForMySpaces"
@@ -59,6 +71,19 @@
                   class="q-my-md"
                 >
                   <schedule-mini-card :schedule="schedule" />
+                </div>
+                <div
+                  v-if="
+                    !loadingSchedulesSpaces && schedulesForMySpaces.length === 0
+                  "
+                >
+                  <span class="text-grey text-center">
+                    {{
+                      $t(
+                        "messages.information.youDonthaveAnyScheduleForYourSpace"
+                      )
+                    }}</span
+                  >
                 </div>
               </q-card-section>
             </q-card>
@@ -90,6 +115,7 @@ export default {
     const schedulesForMySpaces = ref([]);
     const loadingSpaces = ref(true);
     const loadingSchedules = ref(true);
+    const loadingSchedulesSpaces = ref(true);
 
     supabase
       .from("spaces")
@@ -110,8 +136,9 @@ export default {
 
     supabase
       .from("schedules")
-      .select()
+      .select("*, spaces(*, photos(url)), users(raw_user_meta_data)")
       .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
       .then(({ data, error }) => {
         if (error) {
           Notify.create({
@@ -138,9 +165,11 @@ export default {
             message: error.message,
           });
         } else {
-          schedulesForMySpaces.value = data;
+          schedulesForMySpaces.value = data.filter((schedule) => {
+            return schedule.spaces !== null;
+          });
         }
-        loadingSchedules.value = false;
+        loadingSchedulesSpaces.value = false;
       });
 
     return {
@@ -150,6 +179,7 @@ export default {
       user,
       loadingSpaces,
       loadingSchedules,
+      loadingSchedulesSpaces,
     };
   },
 };
