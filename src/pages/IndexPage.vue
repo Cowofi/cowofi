@@ -23,7 +23,7 @@
         <q-btn
           push
           color="primary"
-          text-color="black"
+          text-color="white"
           :label="$t('action.exploreSpaces')"
           icon="eva-search-outline"
           to="/explorer"
