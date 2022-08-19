@@ -1,7 +1,7 @@
 <template>
-  <q-layout view="lhH Lpr lFf">
-    <q-header>
-      <q-toolbar class="bg-white">
+  <q-layout view="lHh Lpr lFf">
+    <q-header class="bg-white">
+      <q-toolbar class="bg-white constrain-width">
         <q-toolbar-title>
           <q-img
             src="/images/illustrations/cowofi_isotipo.svg"

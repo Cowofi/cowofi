@@ -33,16 +33,29 @@ export default {
     opensAt: "Opens At",
     closesAt: "Closes At",
     spaceInformation: "Space Information",
+    spaceTypes: "Space Types",
+    or: "or",
+    allCities: "All Cities",
+    all: "All",
+    fromDate: "From Date",
+    toDate: "To Date",
+    fromTime: "From Time",
+    toTime: "To Time",
+    date: "Date",
+    time: "Time",
+    fromAndtoDate: "From and to date",
   },
   messages: {
     information: {
       findPerfectWorkingSpaceNearYou: "Find perfect working space near you",
-      startYourSearch: "Start your search",
       youSpaceIsNowAvailable: "Your space is now available",
       afterPublishMessage:
         "What`s next now? share with the world that you have a space available",
       internetSpeedExample: "Example: 100Mb/s",
       clickHereToUploadMultipleImages: "Click here to upload multiple images",
+      noSpaceFound: "No space found, maybe try with another city",
+      reversationDescription:
+        "A reservation does not guarantee your space, contact the coworker to guarantee your reservation.",
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
@@ -58,5 +71,10 @@ export default {
     goHome: "Go Home",
     viewSpace: "View Space",
     exploreSpaces: "Explore Space",
+    postSpace: "Post Space",
+    edit: "Edit",
+    reserveSpace: "Reserve Space",
+    close: "Close",
+    sendReservation: "Send Reservation",
   },
 };
