@@ -93,7 +93,7 @@
             :label="$t('action.reserveSpace')"
           />
           <q-dialog v-model="showScheduleForm">
-            <q-card style="width: 700px; max-width: 80vw">
+            <q-card style="width: 400px; max-width: 80vw">
               <q-card-section class="row items-center q-pb-none">
                 <div class="text-h6">{{ $t("action.reserveSpace") }}</div>
                 <q-space />
@@ -121,6 +121,9 @@
                 <schedule-form-creation
                   @create-schedule="createSchedule"
                   :loading="loading"
+                  :availableWeekDays="space.available_week_days"
+                  :opensAt="space.opens_at"
+                  :closesAt="space.closes_at"
                 />
               </q-card-section>
             </q-card>
