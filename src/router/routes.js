@@ -6,16 +6,25 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import('pages/IndexPage.vue'), meta: {
+        component: () => import('pages/IndexPage.vue'),
+        meta: {
           isPublic: true
         }
       },
       {
         path: 'explorer',
-        component: () => import('src/pages/ExploreSpaces.vue'), meta: {
+        component: () => import('src/pages/ExploreSpaces.vue'),
+        meta: {
           isPublic: true
         }
-      }
+      },
+      {
+        path: 'profile',
+        component: () => import('src/pages/User/ProfileDetails.vue'),
+        meta: {
+          isPublic: false
+        }
+      },
     ]
   },
   {
