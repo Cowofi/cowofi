@@ -44,6 +44,15 @@ export default {
     date: 'Date',
     time: 'Time',
     fromAndtoDate: 'From and to date',
+    spaces: 'Spaces',
+    schedules: 'Schedules',
+    verified: 'Verified',
+    unverified: 'Unverified',
+    from: 'From',
+    to: 'To',
+    at: 'At',
+    mySpaceSchedules: 'My Space Schedules',
+    days: 'Days',
   },
   messages: {
     information: {
