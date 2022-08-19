@@ -49,15 +49,13 @@ export default {
     information: {
       findPerfectWorkingSpaceNearYou: "Find perfect working space near you",
       youSpaceIsNowAvailable: "Your space is now available",
-      afterPublishMessage:
-        "What`s next now? share with the world that you have a space available",
+      afterPublishMessage: "What`s next now? share with the world that you have a space available",
       internetSpeedExample: "Example: 100Mb/s",
       thereIsNoSpace: "Oops! There is no space here",
       youShouldTakeAnotherDirection: "You should take another direction",
       clickHereToUploadMultipleImages: "Click here to upload multiple images",
       noSpaceFound: "No space found, maybe try with another city",
-      reversationDescription:
-        "A reservation does not guarantee your space, contact the coworker to guarantee your reservation.",
+      reversationDescription: "A reservation does not guarantee your space, contact the coworker to guarantee your reservation.",
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",

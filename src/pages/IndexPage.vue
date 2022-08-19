@@ -64,6 +64,25 @@
           }"
         />
       </div>
+      <div class="col-12">
+        <q-btn
+          push
+          color="primary"
+          text-color="white"
+          :label="$t('action.exploreSpaces')"
+          icon="eva-search-outline"
+          to="/explorer"
+        />
+        <span class="q-mx-md">{{ $t("common.or") }}</span>
+        <q-btn
+          push
+          color="white"
+          text-color="black"
+          :label="$t('action.postSpace')"
+          icon="eva-plus-outline"
+          to="/spaces/create"
+        />
+      </div>
     </div>
     <div class="bg-secondary q-pa-md q-mt-lg spaceSection">
       <div class="row q-col-gutter-md">

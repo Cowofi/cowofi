@@ -71,84 +71,97 @@
               <q-icon size="sm" name="eva-wifi-off-outline" />
             </template>
           </div>
-          <div class="q-mt-sm">
-            <q-icon size="sm" name="eva-clock-outline" />
-            {{ $t("common.opensAt") }} {{ parseTime(space.opens_at) }} -
-            {{ $t("common.closesAt") }} {{ parseTime(space.closes_at) }}
-          </div>
-          <div class="q-mt-md">
-            <q-btn
-              class="q-mr-sm"
-              unelevated
-              v-for="day in space.available_week_days"
-              :key="day"
-              color="secondary"
-              text-color="white"
-              :label="getWeekDayLabel(day)"
-            />
-          </div>
-          <div class="q-mt-md">
-            <q-btn
-              v-if="authStore.user.id !== space.userid"
-              @click="
-                authStore.user.id
-                  ? (showScheduleForm = true)
-                  : $router.push('/login')
-              "
-              push
-              icon="eva-calendar-outline"
-              color="primary"
-              text-color="white"
-              :label="$t('action.reserveSpace')"
-            />
-            <q-dialog v-model="showScheduleForm">
-              <q-card style="width: 700px; max-width: 80vw">
-                <q-card-section class="row items-center q-pb-none">
-                  <div class="text-h6">{{ $t("action.reserveSpace") }}</div>
-                  <q-space />
-                  <q-btn
-                    icon="eva-close-outline"
-                    flat
-                    round
-                    dense
-                    v-close-popup
-                  />
-                </q-card-section>
-                <q-card-section>
-                  <q-icon
-                    class="q-mb-xs q-mr-xs"
-                    size="xs"
-                    color="blue"
-                    name="eva-info-outline"
-                  />
-                  <span>
-                    {{ $t("messages.information.reversationDescription") }}
-                  </span>
-                </q-card-section>
+        </div>
+        
+        <div class="q-my-md">
+          <template v-if="space.internet">
+            <q-icon size="sm" name="eva-wifi-outline" />
+            {{ space.internet_speed }}
+          </template>
+          <template v-else>
+            <q-icon size="sm" name="eva-wifi-off-outline" />
+          </template>
+        </div>
+        <div class="q-mt-sm">
+          <q-icon size="sm" name="eva-clock-outline" />
+          {{ $t("common.opensAt") }} {{ parseTime(space.opens_at) }} -
+          {{ $t("common.closesAt") }} {{ parseTime(space.closes_at) }}
+        </div>
+        <div class="q-mt-md">
+          <q-btn
+            class="q-mr-sm"
+            unelevated
+            v-for="day in space.available_week_days"
+            :key="day"
+            color="secondary"
+            text-color="white"
+            :label="getWeekDayLabel(day)"
+          />
+        </div>
+        <div class="q-mt-md">
+          <q-btn
+            v-if="authStore.user.id !== space.userid"
+            @click="
+              authStore.user.id
+                ? (showScheduleForm = true)
+                : $router.push('/login')
+            "
+            push
+            icon="eva-calendar-outline"
+            color="primary"
+            text-color="white"
+            :label="$t('action.reserveSpace')"
+          />
+          <q-dialog v-model="showScheduleForm">
+            <q-card style="width: 400px; max-width: 80vw">
+              <q-card-section class="row items-center q-pb-none">
+                <div class="text-h6">{{ $t("action.reserveSpace") }}</div>
+                <q-space />
+                <q-btn
+                  icon="eva-close-outline"
+                  flat
+                  round
+                  dense
+                  v-close-popup
+                />
+              </q-card-section>
+              <q-card-section>
+                <q-icon
+                  class="q-mb-xs q-mr-xs"
+                  size="xs"
+                  color="blue"
+                  name="eva-info-outline"
+                />
+                <span>
+                  {{ $t("messages.information.reversationDescription") }}
+                </span>
+              </q-card-section>
 
-                <q-card-section class="q-pt-md">
-                  <schedule-form-creation
-                    @create-schedule="createSchedule"
-                    :loading="loading"
-                  />
-                </q-card-section>
-              </q-card>
-            </q-dialog>
-          </div>
-        </q-card-section>
-      </q-card>
-      <q-card flat bordered class="q-mt-md">
-        <q-card-section>
-          <p class="text-h5">{{ $t("common.location") }}</p>
-          <div class="text-grey text-italic q-my-md">
-            {{ space.country }} - {{ space.city }}
-          </div>
-          <div style="height: 425px; position: relative">
-            <viewLocation :coordinates="space.location" />
-          </div>
-        </q-card-section>
-      </q-card>
-    </div>
+              <q-card-section class="q-pt-md">
+                <schedule-form-creation
+                  @create-schedule="createSchedule"
+                  :loading="loading"
+                  :availableWeekDays="space.available_week_days"
+                  :opensAt="space.opens_at"
+                  :closesAt="space.closes_at"
+                />
+              </q-card-section>
+            </q-card>
+          </q-dialog>
+        </div>
+      </q-card-section>
+    </q-card>
+    <q-card flat bordered class="q-mt-md">
+      <q-card-section>
+        <p class="text-h5">{{ $t("common.location") }}</p>
+        <div class="text-grey text-italic q-my-md">
+          {{ space.country }} - {{ space.city }}
+        </div>
+        <div style="height: 425px; position: relative">
+          <viewLocation :coordinates="space.location" />
+        </div>
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
