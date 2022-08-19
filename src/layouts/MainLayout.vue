@@ -67,6 +67,7 @@ import { defineComponent, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
 import supabase from "boot/supabase";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "MainLayout",
@@ -75,6 +76,7 @@ export default defineComponent({
     const $t = useI18n().t;
     const authStore = useAuthStore();
     const loading = ref(false);
+    const $router = useRouter();
 
     const linksList = [
       {
@@ -96,6 +98,7 @@ export default defineComponent({
         await supabase.auth.signOut();
         authStore.logout();
         loading.value = false;
+        $router.push("/");
       },
     };
   },
