@@ -2,7 +2,7 @@
   <q-page>
     <div class="row justify-center">
       <div class="row justify-center items-center">
-        <div class="col-6 text-left">
+        <div :class="$q.screen.xs ? 'col-12 text-center' : 'col-6 text-left'">
           <img
             alt="work time illustration"
             src="/images/illustrations/not_found.png"
@@ -19,6 +19,9 @@
           <q-chip color="secondary" text-color="white"> Page not found </q-chip>
           <p class="text-h2 text-bold text-left">
             {{ $t("messages.information.thereIsNoSpace") }}
+          </p>
+          <p class="text-h6 text-grey-5">
+            {{ $t("messages.information.youShouldTakeAnotherDirection") }}
           </p>
           <div class="col-12 text-left">
             <q-btn
