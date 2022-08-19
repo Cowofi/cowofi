@@ -5,7 +5,30 @@
         <p class="text-h3 text-bold">
           {{ $t("messages.information.findPerfectWorkingSpaceNearYou") }}!
         </p>
-        <div :class="$q.screen.xs ? 'col-xs-12 text-center' : ''">
+        <div v-if="$q.screen.xs">
+          <div class="col-xs-12 text-center">
+            <q-btn
+              push
+              color="primary"
+              text-color="white"
+              rounded
+              :label="$t('action.exploreSpaces')"
+              icon="eva-search-outline"
+              to="/explorer"
+            />
+            <span class="q-ma-md">{{ $t("common.or") }}</span>
+            <q-btn
+              push
+              color="white"
+              rounded
+              text-color="black"
+              :label="$t('action.postSpace')"
+              icon="eva-plus-outline"
+              to="/spaces/create"
+            />
+          </div>
+        </div>
+        <div v-else>
           <q-btn
             push
             color="primary"
@@ -20,8 +43,8 @@
             push
             color="white"
             rounded
-            :class="$q.screen.sm ? 'q-mt-md' : ''"
             text-color="black"
+            class="q-mt-md"
             :label="$t('action.postSpace')"
             icon="eva-plus-outline"
             to="/spaces/create"
