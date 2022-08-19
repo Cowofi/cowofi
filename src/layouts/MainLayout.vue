@@ -1,12 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header>
-      <q-toolbar class="bg-white">
+    <q-header class="bg-white">
+      <q-toolbar class="bg-white constrain-width">
         <q-toolbar-title>
           <q-img
             src="/logotipo.png"
             spinner-color="white"
-            style="height: 70px; max-width: 170px"
+            style="max-width: 170px"
             class="q-ma-xs cursor-pointer"
             @click="$router.push('/')"
           />

@@ -8,14 +8,18 @@
   >
     <q-card-section>
       <div class="row q-col-gutter-md space-mini-container">
-        <div class="col-4">
+        <div class="col-xs-12 col-sm-4">
           <img
             v-if="space.photos[0]"
             :src="asssetsRoute + space.photos[0].url"
-            alt=""
+            :style="{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }"
           />
         </div>
-        <div class="col-8">
+        <div class="col-xs-12 col-sm-8">
           <div class="row">
             <div class="col-12">
               <p class="ellipsis-2-lines">
@@ -30,13 +34,10 @@
                 <div class="col-10">
                   {{ spaceType.title }}
                   <template v-if="space.private_office">
-                    <q-chip
-                      color="primary"
-                      text-color="white"
-                      icon="eva-lock-outline"
+                    -
+                    <span class="text-primary">
+                      {{ $t("common.privateOffice") }}</span
                     >
-                      {{ $t("common.privateOffice") }}
-                    </q-chip>
                   </template>
                 </div>
               </div>
@@ -50,6 +51,17 @@
 
                 {{ $t("common.opensAt") }} {{ parseTime(space.opens_at) }} -
                 {{ $t("common.closesAt") }} {{ parseTime(space.closes_at) }}
+              </div>
+              <div>
+                <q-chip
+                  v-for="day in space.available_week_days"
+                  :key="day"
+                  color="primary"
+                  text-color="white"
+                  size="sm"
+                >
+                  {{ getWeekDayLabel(day) }}
+                </q-chip>
               </div>
 
               <q-separator class="q-my-md" />
@@ -71,7 +83,7 @@
 
 <script>
 import spaceTypes from "src/utils/spaceTypes";
-import { parseTime } from "src/utils/time";
+import { parseTime, weekdays } from "src/utils/time";
 
 export default {
   name: "ComponentSpaceMini",
@@ -91,6 +103,9 @@ export default {
       asssetsRoute:
         process.env.SUPABASE_PROJECT_URL + "/storage/v1/object/public/",
       parseTime,
+      getWeekDayLabel(day) {
+        return weekdays.find((d) => d.value === day).label;
+      },
     };
   },
 };

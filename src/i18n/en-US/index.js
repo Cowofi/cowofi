@@ -37,6 +37,13 @@ export default {
     or: 'or',
     allCities: 'All Cities',
     all: 'All',
+    fromDate: 'From Date',
+    toDate: 'To Date',
+    fromTime: 'From Time',
+    toTime: 'To Time',
+    date: 'Date',
+    time: 'Time',
+    fromAndtoDate: 'From and to date',
   },
   messages: {
     information: {
@@ -46,6 +53,7 @@ export default {
       internetSpeedExample: 'Example: 100Mb/s',
       clickHereToUploadMultipleImages: 'Click here to upload multiple images',
       noSpaceFound: 'No space found, maybe try with another city',
+      reversationDescription: 'A reservation does not guarantee your space, contact the coworker to guarantee your reservation.'
     },
     error: {
       pleaseEnterValidPhoneNumber: 'Please enter valid phone number',
@@ -62,5 +70,8 @@ export default {
     exploreSpaces: 'Explore Space',
     postSpace: 'Post Space',
     edit: 'Edit',
+    reserveSpace: 'Reserve Space',
+    close: 'Close',
+    sendReservation: 'Send Reservation',
   }
 }

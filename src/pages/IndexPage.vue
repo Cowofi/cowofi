@@ -10,7 +10,13 @@
         <img
           alt="work time illustration"
           src="/images/illustrations/work_time.png"
-          style="width: 600px"
+          :style="{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: -5,
+            position: 'relative',
+          }"
         />
       </div>
       <div class="col-12">
