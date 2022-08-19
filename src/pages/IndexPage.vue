@@ -1,10 +1,30 @@
 <template>
   <q-page padding>
     <div class="row justify-center items-center">
-      <div class="col-4">
+      <div class="col-sm-4 col-xs-12">
         <p class="text-h3 text-bold">
           {{ $t("messages.information.findPerfectWorkingSpaceNearYou") }}!
         </p>
+        <q-btn
+          push
+          color="primary"
+          text-color="white"
+          rounded
+          :label="$t('action.exploreSpaces')"
+          icon="eva-search-outline"
+          to="/explorer"
+        />
+        <span class="q-ma-md">{{ $t("common.or") }}</span>
+        <q-btn
+          push
+          color="white"
+          rounded
+          text-color="black"
+          :class="$q.screen.xs ? '' : 'q-mt-md'"
+          :label="$t('action.postSpace')"
+          icon="eva-plus-outline"
+          to="/spaces/create"
+        />
       </div>
       <div class="col-8 text-right">
         <img
@@ -17,25 +37,6 @@
             zIndex: -5,
             position: 'relative',
           }"
-        />
-      </div>
-      <div class="col-12">
-        <q-btn
-          push
-          color="primary"
-          text-color="black"
-          :label="$t('action.exploreSpaces')"
-          icon="eva-search-outline"
-          to="/explorer"
-        />
-        <span class="q-mx-md">{{ $t("common.or") }}</span>
-        <q-btn
-          push
-          color="white"
-          text-color="black"
-          :label="$t('action.postSpace')"
-          icon="eva-plus-outline"
-          to="/spaces/create"
         />
       </div>
     </div>
