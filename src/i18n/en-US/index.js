@@ -53,6 +53,7 @@ export default {
         "What`s next now? share with the world that you have a space available",
       internetSpeedExample: "Example: 100Mb/s",
       thereIsNoSpace: "Oops! There is no space here",
+      youShouldTakeAnotherDirection: "You should take another direction",
       clickHereToUploadMultipleImages: "Click here to upload multiple images",
       noSpaceFound: "No space found, maybe try with another city",
       reversationDescription:
