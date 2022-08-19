@@ -53,6 +53,9 @@ export default {
     at: 'At',
     mySpaceSchedules: 'My Space Schedules',
     days: 'Days',
+    profile: 'Profile',
+    in: 'in',
+    dayAgo: 'day ago'
   },
   messages: {
     information: {
@@ -82,5 +85,6 @@ export default {
     reserveSpace: 'Reserve Space',
     close: 'Close',
     sendReservation: 'Send Reservation',
+    goToSpace: 'Go to Space',
   }
 }
