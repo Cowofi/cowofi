@@ -33,6 +33,7 @@
             :label="$t('common.city')"
             style="width: 250px"
             @filter="filterCities"
+            :disable="country !== 'All' ? false : true"
             use-input
             @update:model-value="onChangeCity"
           />
