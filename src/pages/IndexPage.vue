@@ -1,10 +1,55 @@
 <template>
   <q-page padding>
     <div class="row justify-center items-center">
-      <div class="col-4">
+      <div class="col-sm-4 col-xs-12">
         <p class="text-h3 text-bold">
           {{ $t("messages.information.findPerfectWorkingSpaceNearYou") }}!
         </p>
+        <div v-if="$q.screen.xs">
+          <div class="col-xs-12 text-center">
+            <q-btn
+              push
+              color="primary"
+              text-color="white"
+              rounded
+              :label="$t('action.exploreSpaces')"
+              icon="eva-search-outline"
+              to="/explorer"
+            />
+            <span class="q-ma-md">{{ $t("common.or") }}</span>
+            <q-btn
+              push
+              color="white"
+              rounded
+              text-color="black"
+              :label="$t('action.postSpace')"
+              icon="eva-plus-outline"
+              to="/spaces/create"
+            />
+          </div>
+        </div>
+        <div v-else>
+          <q-btn
+            push
+            color="primary"
+            text-color="white"
+            rounded
+            :label="$t('action.exploreSpaces')"
+            icon="eva-search-outline"
+            to="/explorer"
+          />
+          <span class="q-ma-md">{{ $t("common.or") }}</span>
+          <q-btn
+            push
+            color="white"
+            rounded
+            text-color="black"
+            class="q-mt-md"
+            :label="$t('action.postSpace')"
+            icon="eva-plus-outline"
+            to="/spaces/create"
+          />
+        </div>
       </div>
       <div class="col-8 text-right">
         <img
@@ -19,27 +64,8 @@
           }"
         />
       </div>
-      <div class="col-12">
-        <q-btn
-          push
-          color="primary"
-          text-color="white"
-          :label="$t('action.exploreSpaces')"
-          icon="eva-search-outline"
-          to="/explorer"
-        />
-        <span class="q-mx-md">{{ $t("common.or") }}</span>
-        <q-btn
-          push
-          color="white"
-          text-color="black"
-          :label="$t('action.postSpace')"
-          icon="eva-plus-outline"
-          to="/spaces/create"
-        />
-      </div>
     </div>
-    <div class="bg-secondary q-pa-md q-mt-lg">
+    <div class="bg-secondary q-pa-md q-mt-lg spaceSection">
       <div class="row q-col-gutter-md">
         <div class="col-12">
           <p class="text-h5 text-white">{{ $t("common.spaceTypes") }}</p>

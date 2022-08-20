@@ -1,18 +1,38 @@
 <template>
   <q-page padding>
     <template v-if="success">
-      <h3>Verify your email address</h3>
-      <p>
-        We have sent you an email with a verification link. Please click the
-        link to verify your email address.
-      </p>
-      <q-btn
-        color="primary"
-        push
-        text-color="black"
-        to="/"
-        label="Back to home"
-      />
+      <div class="row text-center">
+        <div class="col-12">
+          <img
+            alt="work time illustration"
+            src="/images/illustrations/mail_sent.png"
+            :style="{
+              width: '50%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: -5,
+              position: 'relative',
+            }"
+          />
+        </div>
+        <div class="col-12">
+          <h3>Verify your email address</h3>
+        </div>
+        <div class="col-12">
+          <p class="text-h6">
+            We have sent you an email to <b>{{ email }}</b> with a verification
+            link. Please click the link to verify your email address.
+          </p>
+        </div>
+        <div class="col-12">
+          <q-btn
+            color="primary"
+            text-color="white"
+            to="/"
+            label="Back to home"
+          />
+        </div>
+      </div>
     </template>
     <template v-else>
       <q-card flat style="max-width: 400px" class="q-mx-auto q-mt-lg">
@@ -73,7 +93,7 @@
                 :label="$t('common.register')"
                 type="submit"
                 color="primary"
-                text-color="black"
+                text-color="white"
                 icon="eva-person-add-outline"
               />
             </div>
