@@ -1,12 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header>
-      <q-toolbar class="bg-white">
+    <q-header class="bg-white">
+      <q-toolbar class="bg-white constrain-width">
         <q-toolbar-title>
           <q-img
-            src="/logotipo.png"
+            src="/logotipo_vector.png"
             spinner-color="white"
-            style="max-width: 170px"
+            style="max-width: 120px"
             class="q-ma-xs cursor-pointer"
             @click="$router.push('/')"
           />
@@ -21,7 +21,11 @@
           :to="link.route"
         />
         <template v-if="authStore.user.id">
-          <q-avatar class="cursor-pointer" color="primary" text-color="white">
+          <q-avatar
+            class="cursor-pointer q-ml-xs"
+            color="primary"
+            text-color="white"
+          >
             {{ authStore.user.user_metadata.full_name.substring(0, 1) }}
             <q-menu>
               <q-list style="min-width: 100px">
@@ -58,6 +62,7 @@ import { defineComponent, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
 import supabase from "boot/supabase";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "MainLayout",
@@ -66,6 +71,7 @@ export default defineComponent({
     const $t = useI18n().t;
     const authStore = useAuthStore();
     const loading = ref(false);
+    const $router = useRouter();
 
     const linksList = [
       {
@@ -87,6 +93,7 @@ export default defineComponent({
         await supabase.auth.signOut();
         authStore.logout();
         loading.value = false;
+        $router.push("/");
       },
     };
   },
