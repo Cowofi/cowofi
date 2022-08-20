@@ -4,8 +4,16 @@
     class="cursor-pointer"
     flat
     bordered
-    style="max-width: 650px"
+    style="max-width: 650px; position: relative"
   >
+    <q-chip
+      v-if="space.new"
+      style="position: absolute; float: left; z-index: 2; margin: 0"
+      color="red"
+      text-color="white"
+      icon="eva-flash-outline"
+      :label="$t('common.new')"
+    />
     <q-card-section>
       <div class="row q-col-gutter-md space-mini-container">
         <div class="col-xs-12 col-sm-4">
@@ -111,6 +119,9 @@ export default {
 };
 </script>
 <style>
+.space-mini-container {
+  height: 246px;
+}
 .space-mini-container img {
   max-width: 200px;
   border-radius: 4px;
