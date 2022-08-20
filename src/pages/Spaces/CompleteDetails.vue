@@ -159,7 +159,7 @@ import { useRoute } from "vue-router";
 import { Notify } from "quasar";
 import { parseTime, weekdays } from "src/utils/time";
 import spaceTypes from "src/utils/spaceTypes";
-import notFound from "src/components/interface/404.vue";
+import notFound from "components/Interface/404.vue";
 import ViewLocation from "components/Map/ViewLocation.vue";
 import { useAuthStore } from "stores/Auth";
 import ScheduleFormCreation from "components/Schedule/CreateForm.vue";
