@@ -59,6 +59,9 @@ export default {
     mySchedules: "My Schedules",
     mostRecentSpaces: "Most Recent Spaces",
     new: "New",
+    termsAndConditions: "Terms and Conditions",
+    privacyPolicy: "Privacy Policy",
+    about: "About",
   },
   messages: {
     information: {
