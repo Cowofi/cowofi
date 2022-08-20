@@ -130,6 +130,9 @@
                   <schedule-form-creation
                     @create-schedule="createSchedule"
                     :loading="loading"
+                    :availableWeekDays="space.available_week_days"
+                    :opensAt="space.opens_at"
+                    :closesAt="space.closes_at"
                   />
                 </q-card-section>
               </q-card>
