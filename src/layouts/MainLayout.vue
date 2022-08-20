@@ -60,6 +60,7 @@
 
     <q-page-container>
       <router-view />
+      <footer-component />
     </q-page-container>
   </q-layout>
 </template>
@@ -70,10 +71,13 @@ import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
 import supabase from "boot/supabase";
 import { useRouter } from "vue-router";
+import footerComponent from "components/Interface/Footer.vue";
 
 export default defineComponent({
   name: "MainLayout",
-
+  components: {
+    footerComponent,
+  },
   setup() {
     const $t = useI18n().t;
     const authStore = useAuthStore();
