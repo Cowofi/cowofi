@@ -65,7 +65,10 @@
         />
       </div>
     </div>
-    <div class="bg-secondary q-pa-md q-mt-lg spaceSection">
+    <div
+      class="bg-secondary q-pa-md q-mt-lg spaceSection"
+      style="border-radius: 4px"
+    >
       <div class="row q-col-gutter-md">
         <div class="col-12">
           <p class="text-h5 text-white">{{ $t("common.spaceTypes") }}</p>
