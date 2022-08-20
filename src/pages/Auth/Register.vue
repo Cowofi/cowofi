@@ -16,12 +16,12 @@
           />
         </div>
         <div class="col-12">
-          <h3>Verify your email address</h3>
+          <h3>{{ $t("messages.information.VerifyEmailAddress") }}</h3>
         </div>
         <div class="col-12">
           <p class="text-h6">
-            We have sent you an email to <b>{{ email }}</b> with a verification
-            link. Please click the link to verify your email address.
+            {{ $t("messages.information.weSentEmail1") }} <b>{{ email }}</b>
+            {{ $t("messages.information.weSentEmail2") }}
           </p>
         </div>
         <div class="col-12">
