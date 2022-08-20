@@ -58,6 +58,7 @@ export default {
     dayAgo: "day ago",
     mySchedules: "My Schedules",
     mostRecentSpaces: "Most Recent Spaces",
+    new: "New",
   },
   messages: {
     information: {
