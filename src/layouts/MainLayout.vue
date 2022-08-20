@@ -21,6 +21,13 @@
           :to="link.route"
         />
         <template v-if="authStore.user.id">
+          <q-btn
+            stretch
+            flat
+            text-color="secondary"
+            :label="$t('common.profile')"
+            :to="'/profile'"
+          />
           <q-avatar
             class="cursor-pointer q-ml-xs"
             color="primary"
