@@ -24,6 +24,14 @@
           <q-btn
             stretch
             flat
+            to="/messages"
+            text-color="secondary"
+            class="q-ml-md"
+            :label="$t('common.messages')"
+          />
+          <q-btn
+            stretch
+            flat
             text-color="secondary"
             :label="$t('common.profile')"
             :to="'/profile'"
