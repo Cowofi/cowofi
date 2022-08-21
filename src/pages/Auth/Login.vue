@@ -40,7 +40,7 @@
             :label="$t('common.login')"
             type="submit"
             color="primary"
-            text-color="black"
+            text-color="white"
             icon="eva-log-in-outline"
           />
         </div>
