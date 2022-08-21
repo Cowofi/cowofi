@@ -21,7 +21,7 @@
                 <chat-card
                   :chat="chat"
                   :is-selected="selectedChat && selectedChat.id === chat.id"
-                  @selected="onSelectChat(chat.id)"
+                  @selected="onSelectChat(chat)"
                 />
                 <q-separator class="q-my-md" />
               </div>
@@ -33,7 +33,7 @@
               v-if="!loadingMessages && selectedChat"
             >
               <div class="col-12">
-                User name
+                {{ selectedChat.to_user_name }}
                 <q-separator class="q-mt-md" />
               </div>
               <div class="col-12 messages-container">
@@ -136,13 +136,15 @@ export default {
         loadingChats.value = false;
       });
 
-    const createChat = (toUserId) => {
+    const createChat = ({ toUserId, fullName }) => {
       loadingChats.value = true;
       supabase
         .from("chats")
         .insert({
           from_user: user.id,
+          from_user_name: user.user_metadata.full_name,
           to_user: toUserId,
+          to_user_name: fullName,
         })
         .then(({ data, error }) => {
           if (error) {
@@ -154,7 +156,8 @@ export default {
           }
 
           if (data) {
-            chats.value.push(data);
+            chats.value.push(data[0]);
+            selectedChat.value = data[0];
           }
           loadingChats.value = false;
         });
@@ -166,7 +169,7 @@ export default {
         .from("chats")
         .select()
         .eq("to_user", userId)
-        .then(({ data, error }) => {
+        .then(async ({ data, error }) => {
           if (error) {
             Notify.create({
               color: "negative",
@@ -179,22 +182,30 @@ export default {
             const chat = data[0];
 
             if (!chat) {
-              createChat(userId);
+              const { data, error } = await supabase
+                .from("users")
+                .select()
+                .eq("id", userId);
+              const toUser = data[0];
+              createChat({
+                toUserId: userId,
+                fullName: toUser.raw_user_meta_data.full_name,
+              });
             } else {
               selectedChat.value = chat;
-              fetchMessages(chat.id);
+              fetchMessages(chat);
             }
           }
           loadingChats.value = false;
         });
     };
 
-    const fetchMessages = (chatId) => {
+    const fetchMessages = (chat) => {
       loadingMessages.value = true;
       supabase
         .from("messages")
         .select()
-        .eq("chat_id", chatId)
+        .eq("chat_id", chat.id)
         .order("created_at", { ascending: true })
         .then(({ data, error }) => {
           if (error) {
@@ -206,7 +217,7 @@ export default {
           }
 
           if (data) {
-            selectedChat.value = { id: chatId };
+            selectedChat.value = chat;
             messages.value = data;
             focusLastChatMessage();
           }
@@ -224,9 +235,9 @@ export default {
         .subscribe();
     };
 
-    const onSelectChat = (chatId) => {
-      fetchMessages(chatId);
-      susbscribeToChatMessages(chatId);
+    const onSelectChat = (chat) => {
+      fetchMessages(chat);
+      susbscribeToChatMessages(chat.id);
     };
 
     if (params.userId) {
@@ -271,7 +282,7 @@ export default {
               }
 
               if (data) {
-                messages.value.push(data);
+                messages.value.push(data[0]);
                 message.value = "";
                 focusLastChatMessage();
               }
