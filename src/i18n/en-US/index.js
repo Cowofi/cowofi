@@ -62,6 +62,11 @@ export default {
     termsAndConditions: "Terms and Conditions",
     privacyPolicy: "Privacy Policy",
     about: "About",
+    messages: "Messages",
+    yourMessages: "Your Messages",
+    conversations: "Conversations",
+    message: "Message",
+    sendMessage: 'Send message'
   },
   messages: {
     information: {
@@ -101,6 +106,7 @@ export default {
     reserveSpace: "Reserve Space",
     close: "Close",
     sendReservation: "Send Reservation",
-    goToSpace: "Go to Space"
+    goToSpace: "Go to Space",
+    sendMessage: "Send message"
   },
 };
