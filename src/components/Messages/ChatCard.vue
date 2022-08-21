@@ -7,6 +7,9 @@
   >
     <div class="col-md-4">
       <q-avatar size="md" color="primary" text-color="white">
+        <template v-if="chat.isNew">
+          <q-badge color="red" rounded floating />
+        </template>
         {{ chat.to_user_name.substring(0, 1) }}
       </q-avatar>
     </div>
