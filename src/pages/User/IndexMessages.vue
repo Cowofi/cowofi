@@ -105,6 +105,7 @@ export default {
     const loadingMessages = ref(false);
     const message = ref("");
     const chatSubscription = ref(null);
+    const chatsSubscription = ref(null);
 
     const focusLastChatMessage = () => {
       let pageChat = document.querySelector(".messages-container");
@@ -240,7 +241,28 @@ export default {
         .subscribe();
     };
 
+    const susbscribeToChats = () => {
+      chatsSubscription.value = supabase
+        .from(`chats:to_user=eq.${user.id}`)
+        .on("INSERT", (payload) => {
+          const exists = chats.value.find((chat) => {
+            return chat.id === payload.new.id;
+          });
+
+          if (!exists) {
+            chats.value.push({ ...payload.new, isNew: true });
+          }
+        })
+        .subscribe();
+    };
+
     const onSelectChat = (chat) => {
+      const index = chats.value.findIndex((c) => {
+        return c.id === chat.id;
+      });
+
+      chats.value[index].isNew = false;
+
       fetchMessages(chat);
       susbscribeToChatMessages(chat.id);
     };
@@ -256,6 +278,9 @@ export default {
         susbscribeToChatMessages(params.userId);
       }
     }
+
+    // Init methods
+    susbscribeToChats();
 
     return {
       chats,
