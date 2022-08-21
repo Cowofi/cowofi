@@ -31,7 +31,9 @@ Any topic related to bugs, questions, discussions, etc. Here [Github Issues](htt
 
 # Contribute to the project
 
-Any feature, testing, code or comment to the files of the project, it will be amazing if you send us a pull request
+Any feature, testing, code or comment to the files of the project, it will be amazing if you send us a pull request.
+
+ - [Contribution Documents](./CONTRIBUTING.md)
 
 # Team
 
