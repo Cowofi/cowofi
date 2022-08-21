@@ -32,6 +32,20 @@
           <p>
             {{ space.description }}
           </p>
+          <q-separator class="q-my-md" />
+          <div class="space-owner" v-if="space.users">
+            <p class="text-h5">
+              {{ space.users.raw_user_meta_data.full_name }}
+              <q-btn
+                push
+                icon="eva-message-circle-outline"
+                color="primary"
+                text-color="white"
+                :label="$t('action.sendMessage')"
+                :to="'/messages/' + space.userid"
+              />
+            </p>
+          </div>
           <p>
             <q-icon size="sm" name="eva-phone-call-outline" />
             {{ space.phone }}
@@ -185,12 +199,11 @@ export default {
 
     supabase
       .from("spaces")
-      .select("*, photos(url)")
+      .select("*, photos(url), users(raw_user_meta_data)")
       .eq("id", spaceId)
       .then(({ error, data }) => {
         if (data) {
           space.value = data[0];
-          console.log(space.value);
           spaceType.value = spaceTypes.find(
             (type) => type.value === space.value.type
           );

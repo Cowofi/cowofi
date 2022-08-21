@@ -6,7 +6,7 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import('pages/IndexPage.vue'),
+        component: () => import('src/pages/Index.vue'),
         meta: {
           isPublic: true
         }
@@ -25,6 +25,13 @@ const routes = [
           isPublic: false
         }
       },
+      {
+        path: 'messages/:userId?',
+        component: () => import('src/pages/User/IndexMessages.vue'),
+        meta: {
+          isPublic: false
+        }
+      }
     ]
   },
   {
