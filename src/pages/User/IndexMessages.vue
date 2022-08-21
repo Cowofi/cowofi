@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onBeforeUnmount } from "vue";
 import supabase from "src/boot/supabase";
 import { useAuthStore } from "src/stores/Auth";
 import { Notify } from "quasar";
@@ -278,6 +278,16 @@ export default {
 
     // Init methods
     susbscribeToChats();
+
+    onBeforeUnmount(() => {
+      if (chatSubscription.value) {
+        supabase.removeSubscription(chatSubscription.value);
+      }
+
+      if (chatsSubscription.value) {
+        supabase.removeSubscription(chatsSubscription.value);
+      }
+    });
 
     return {
       chats,
