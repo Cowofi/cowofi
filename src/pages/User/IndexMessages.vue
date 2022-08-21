@@ -34,8 +34,8 @@
               <div class="col-12">
                 {{
                   user.id === selectedChat.from_user
-                    ? chat.to_user_name
-                    : chat.from_user_name
+                    ? selectedChat.to_user_name
+                    : selectedChat.from_user_name
                 }}
                 <q-separator class="q-mt-md" />
               </div>
