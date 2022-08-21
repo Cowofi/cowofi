@@ -12,10 +12,14 @@ Not only for rent, if you have a beautiful workspace that you understand can be 
 
 # Features
 
-- [x] Easy setup and deployment
-- [x] Social Media authentication integrated
-- [ ] Testing
-- [ ] Backend and API both on cloud
+- [x] Free publish spaces
+- [x] In App Chat
+- [x] Geolocation
+- [x] Spaces updated in real time
+- [ ] Spaces reviews (base on stars)
+- [x] Spaces description (The most notable is the quality of the internet in each space)
+
+And more cool stuff in alive in the app :point_right: [https://cowofi.netlify.app](https://cowofi.netlify.app)
 
 # Give a Star! ⭐
 
