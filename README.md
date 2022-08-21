@@ -28,3 +28,34 @@ Any topic related to bugs, questions, discussions, etc. Here [Github Issues](htt
 # Contribute to the project
 
 Any feature, testing, code or comment to the files of the project, it will be amazing if you send us a pull request
+
+# Team
+
+<div style="display:flex; gap:20px;" >
+        <div >
+            <a href="https://github.com/itsalb3rt" target="__blank" style="display:flex; flex-direction:column; align-content:center; text-align:center; gap:10px;" >
+                <img src="https://avatars.githubusercontent.com/u/35310226?v=4" width="50"  style="border-radius:50%;"/>
+                <img src="https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D" width=100 />
+            </a>
+        </div>
+         <div >
+            <a href="https://github.com/chakrihacker" target="__blank" style="display:flex; flex-direction:column; align-content:center; text-align:center; gap:10px;">
+                <img src="https://avatars.githubusercontent.com/u/5210019?v=4" width="50"  style="border-radius:50%;"/>
+                <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" width=100 />
+            </a>
+        </div>
+        <div >
+            <a href="https://github.com/rafieltq" target="__blank" style="display:flex; flex-direction:column; align-content:center; text-align:center; gap:10px;" >
+                <img src="https://avatars.githubusercontent.com/u/44907530?v=4" width="50"  style="border-radius:50%;"/>
+                <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" width=100 />
+            </a>
+        </div>
+            <div >
+            <a href="https://github.com/pcabreram1234" target="__blank" style="display:flex; flex-direction:column; align-content:center; text-align:center; gap:10px;" >
+                <img src="https://avatars.githubusercontent.com/u/77460748?v=4" width="50"  style="border-radius:50%;"/>
+                <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white" width=100 />
+            </a>
+        </div>
+        
+ </div>
+
