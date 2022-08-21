@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-card flat bordered class="q-mt-md">
-      <q-card-section>
+      <q-card-section class="main-container">
         <div class="row q-col-gutter-md">
           <div class="col-sm-4 chats-container q-mt-md">
             <div v-if="loadingChats" class="text-center">
@@ -23,11 +23,10 @@
                   :is-selected="selectedChat && selectedChat.id === chat.id"
                   @selected="onSelectChat(chat)"
                 />
-                <q-separator class="q-my-md" />
               </div>
             </div>
           </div>
-          <div class="col-sm-8 q-mt-md">
+          <div class="col-sm-8 q-mt-md main-messages-container">
             <div
               class="row q-col-gutter-md"
               v-if="!loadingMessages && selectedChat"
@@ -229,8 +228,14 @@ export default {
       chatSubscription.value = supabase
         .from(`messages:chat_id=eq.${chatId}`)
         .on("INSERT", (payload) => {
-          messages.value.push(payload.new);
-          focusLastChatMessage();
+          const exists = messages.value.find((message) => {
+            return message.id === payload.new.id;
+          });
+
+          if (!exists) {
+            messages.value.push(payload.new);
+            focusLastChatMessage();
+          }
         })
         .subscribe();
     };
@@ -298,7 +303,11 @@ export default {
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 .messages-container {
+  min-height: 350px;
   max-height: 400px;
   overflow-y: auto;
+}
+.main-messages-container {
+  min-height: 350px;
 }
 </style>
