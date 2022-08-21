@@ -7,10 +7,10 @@
   >
     <div class="col-md-4">
       <q-avatar size="md" color="primary" text-color="white">
-        {{ chat.to_user.substring(0, 1) }}
+        {{ chat.to_user_name.substring(0, 1) }}
       </q-avatar>
     </div>
-    <div class="col-md-8">Jhon doe</div>
+    <div class="col-md-8">{{ chat.to_user_name }}</div>
   </div>
 </template>
 
