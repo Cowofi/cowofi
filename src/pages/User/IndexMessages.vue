@@ -158,6 +158,7 @@ export default {
           if (data) {
             chats.value.push(data[0]);
             selectedChat.value = data[0];
+            susbscribeToChatMessages(data[0].id);
           }
           loadingChats.value = false;
         });
@@ -182,11 +183,12 @@ export default {
             const chat = data[0];
 
             if (!chat) {
-              const { data, error } = await supabase
+              const { data } = await supabase
                 .from("users")
                 .select()
                 .eq("id", userId);
               const toUser = data[0];
+
               createChat({
                 toUserId: userId,
                 fullName: toUser.raw_user_meta_data.full_name,
@@ -256,7 +258,7 @@ export default {
         .subscribe();
     };
 
-    const onSelectChat = (chat) => {
+    const onSelectChat = async (chat) => {
       const index = chats.value.findIndex((c) => {
         return c.id === chat.id;
       });
@@ -264,19 +266,14 @@ export default {
       chats.value[index].isNew = false;
 
       fetchMessages(chat);
+      if (chatSubscription.value) {
+        await supabase.removeSubscription(chatSubscription.value);
+      }
       susbscribeToChatMessages(chat.id);
     };
 
     if (params.userId) {
       fetchChat(params.userId);
-
-      if (chatSubscription.value) {
-        supabase.removeSubscription(spacesSubscription).then(() => {
-          susbscribeToChatMessages(params.userId);
-        });
-      } else {
-        susbscribeToChatMessages(params.userId);
-      }
     }
 
     // Init methods
