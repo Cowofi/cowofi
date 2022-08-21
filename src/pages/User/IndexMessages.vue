@@ -32,7 +32,7 @@
               v-if="!loadingMessages && selectedChat"
             >
               <div class="col-12">
-                {{ selectedChat.to_user_name }}
+                {{ selectedChat.from_user_name }}
                 <q-separator class="q-mt-md" />
               </div>
               <div class="col-12 messages-container">
