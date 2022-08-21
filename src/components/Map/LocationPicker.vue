@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     mapBoxInit() {
-      mapboxgl.accessToken = process.env.ACCESS_TOKEN;
+      mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
       this.map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
