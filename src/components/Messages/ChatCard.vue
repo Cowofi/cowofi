@@ -10,10 +10,10 @@
         <template v-if="chat.isNew">
           <q-badge color="red" rounded floating />
         </template>
-        {{ chat.to_user_name.substring(0, 1) }}
+        {{ chat.from_user_name.substring(0, 1) }}
       </q-avatar>
     </div>
-    <div class="col-md-8">{{ chat.to_user_name }}</div>
+    <div class="col-md-8">{{ chat.from_user_name }}</div>
   </div>
 </template>
 
