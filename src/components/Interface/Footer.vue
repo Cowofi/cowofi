@@ -10,20 +10,25 @@
       />
       <q-separator class="q-my-md" />
       <div class="footer-links">
-        <span class="text-grey-7"> Copyright © {{ getYear() }} Cowofi </span>
+        <span :class="$q.dark.isActive ? 'text-white' : 'text-grey-7'">
+          Copyright © {{ getYear() }} Cowofi
+        </span>
         <span
-          class="link text-grey-7"
+          :class="`link ${$q.dark.isActive ? 'text-white' : 'text-grey-7'}`"
           @click="$router.push('/legal/terms-and-conditions')"
         >
           {{ $t("common.termsAndConditions") }}
         </span>
         <span
-          class="link text-grey-7"
+          :class="`link ${$q.dark.isActive ? 'text-white' : 'text-grey-7'}`"
           @click="$router.push('/legal/privacy-policy')"
         >
           {{ $t("common.privacyPolicy") }}
         </span>
-        <span class="link text-grey-7" @click="goToGithub">
+        <span
+          :class="`link ${$q.dark.isActive ? 'text-white' : 'text-grey-7'}`"
+          @click="goToGithub"
+        >
           {{ $t("common.about") }}
         </span>
       </div>
