@@ -1,7 +1,11 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header class="bg-white">
-      <q-toolbar class="bg-white constrain-width">
+    <q-header :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'">
+      <q-toolbar
+        :class="`${
+          $q.dark.isActive ? 'bg-dark text-white' : 'bg-white'
+        } constrain-width`"
+      >
         <q-toolbar-title>
           <q-img
             src="/logotipo_vector.png"
@@ -16,7 +20,7 @@
           :key="link.title"
           stretch
           flat
-          text-color="secondary"
+          :text-color="$q.dark.isActive ? 'white' : 'secondary'"
           :label="link.title"
           :to="link.route"
         />
@@ -25,14 +29,14 @@
             stretch
             flat
             to="/messages"
-            text-color="secondary"
+            :text-color="$q.dark.isActive ? 'white' : 'secondary'"
             class="q-ml-md"
             :label="$t('common.messages')"
           />
           <q-btn
             stretch
             flat
-            text-color="secondary"
+            :text-color="$q.dark.isActive ? 'white' : 'secondary'"
             :label="$t('common.profile')"
             :to="'/profile'"
           />
@@ -63,6 +67,13 @@
             :label="$t('common.joinNow')"
           />
         </template>
+        <q-toggle
+          color="primary"
+          dark
+          v-model="darkMode"
+          :icon="darkMode ? 'eva-moon-outline' : 'eva-sun-outline'"
+          @update:model-value="toggleDarkMode"
+        />
       </q-toolbar>
     </q-header>
 
@@ -74,6 +85,7 @@
 </template>
 
 <script>
+import { useQuasar } from "quasar";
 import { defineComponent, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
@@ -87,10 +99,14 @@ export default defineComponent({
     footerComponent,
   },
   setup() {
+    const darkmodeFromLocalStorage = localStorage.getItem("darkmode");
+    const $q = useQuasar();
+
     const $t = useI18n().t;
     const authStore = useAuthStore();
     const loading = ref(false);
     const $router = useRouter();
+    const darkMode = ref(darkmodeFromLocalStorage || $q.dark.isActive);
 
     const linksList = [
       {
@@ -107,12 +123,17 @@ export default defineComponent({
       authStore,
       essentialLinks: linksList,
       loading,
+      darkMode,
       async logout() {
         loading.value = true;
         await supabase.auth.signOut();
         authStore.logout();
         loading.value = false;
         $router.push("/");
+      },
+      toggleDarkMode() {
+        window.localStorage.setItem("darkMode", darkMode.value);
+        $q.dark.set(darkMode.value);
       },
     };
   },

@@ -61,6 +61,7 @@
             objectFit: 'cover',
             zIndex: -5,
             position: 'relative',
+            borderRadius: '4px',
           }"
         />
       </div>
@@ -83,7 +84,11 @@
             :to="`/explorer?type=${spaceType.value}`"
           >
             <template v-slot:img>
-              <img width="50" :src="spaceType.img" />
+              <img
+                width="50"
+                style="border-radius: 4px; min-height: 38"
+                :src="spaceType.img"
+              />
             </template>
           </space-type>
         </div>

@@ -14,7 +14,7 @@
             :to="to"
             flat
             round
-            text-color="black"
+            :text-color="$q.dark.isActive ? 'white' : 'black'"
             icon="eva-arrow-circle-right-outline"
           />
         </div>

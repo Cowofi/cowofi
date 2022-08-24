@@ -63,7 +63,11 @@
             v-if="spaceType"
           >
             <div class="col-xs-2 col-sm-1">
-              <img width="50" :src="spaceType.img" />
+              <img
+                width="50"
+                style="height: 38px; border-radius: 4px"
+                :src="spaceType.img"
+              />
             </div>
             <div class="col-10">
               {{ spaceType.title }}
