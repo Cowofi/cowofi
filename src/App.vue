@@ -12,7 +12,19 @@ export default defineComponent({
   name: "App",
   setup() {
     const $q = useQuasar();
-    $q.dark.set(true);
+    let darkmodeFromLocalStorage = localStorage.getItem("darkMode");
+
+    if (
+      darkmodeFromLocalStorage === "true" ||
+      darkmodeFromLocalStorage === true ||
+      darkmodeFromLocalStorage === null
+    ) {
+      darkmodeFromLocalStorage = true;
+    } else {
+      darkmodeFromLocalStorage = false;
+    }
+
+    $q.dark.set(darkmodeFromLocalStorage);
 
     const user = supabase.auth.user();
 
