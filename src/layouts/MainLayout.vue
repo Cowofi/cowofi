@@ -67,6 +67,13 @@
             :label="$t('common.joinNow')"
           />
         </template>
+        <q-toggle
+          color="primary"
+          dark
+          v-model="darkMode"
+          :icon="darkMode ? 'eva-moon-outline' : 'eva-sun-outline'"
+          @update:model-value="toggleDarkMode"
+        />
       </q-toolbar>
     </q-header>
 
@@ -78,6 +85,7 @@
 </template>
 
 <script>
+import { useQuasar } from "quasar";
 import { defineComponent, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
@@ -91,10 +99,14 @@ export default defineComponent({
     footerComponent,
   },
   setup() {
+    const darkmodeFromLocalStorage = localStorage.getItem("darkmode");
+    const $q = useQuasar();
+
     const $t = useI18n().t;
     const authStore = useAuthStore();
     const loading = ref(false);
     const $router = useRouter();
+    const darkMode = ref(darkmodeFromLocalStorage || $q.dark.isActive);
 
     const linksList = [
       {
@@ -111,12 +123,17 @@ export default defineComponent({
       authStore,
       essentialLinks: linksList,
       loading,
+      darkMode,
       async logout() {
         loading.value = true;
         await supabase.auth.signOut();
         authStore.logout();
         loading.value = false;
         $router.push("/");
+      },
+      toggleDarkMode() {
+        window.localStorage.setItem("darkMode", darkMode.value);
+        $q.dark.set(darkMode.value);
       },
     };
   },
