@@ -1,7 +1,11 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header class="bg-white">
-      <q-toolbar class="bg-white constrain-width">
+      <q-toolbar
+        :class="`${
+          $q.dark.isActive ? 'bg-dark text-white' : 'bg-white'
+        } constrain-width`"
+      >
         <q-toolbar-title>
           <q-img
             src="/logotipo_vector.png"
@@ -16,7 +20,7 @@
           :key="link.title"
           stretch
           flat
-          text-color="secondary"
+          :text-color="$q.dark.isActive ? 'white' : 'secondary'"
           :label="link.title"
           :to="link.route"
         />
@@ -25,14 +29,14 @@
             stretch
             flat
             to="/messages"
-            text-color="secondary"
+            :text-color="$q.dark.isActive ? 'white' : 'secondary'"
             class="q-ml-md"
             :label="$t('common.messages')"
           />
           <q-btn
             stretch
             flat
-            text-color="secondary"
+            :text-color="$q.dark.isActive ? 'white' : 'secondary'"
             :label="$t('common.profile')"
             :to="'/profile'"
           />
