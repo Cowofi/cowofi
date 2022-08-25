@@ -2,7 +2,94 @@
   <q-page padding>
     <q-card flat bordered class="q-mt-md">
       <q-card-section class="main-container">
-        <div class="row q-col-gutter-md">
+        <!-- Mobile -->
+        <div class="row q-col-gutter-md" v-if="$q.screen.xs">
+          <div class="col-12 chats-container q-mt-md" v-if="!selectedChat">
+            <div v-if="loadingChats" class="text-center">
+              <q-spinner color="primary" size="3em" />
+            </div>
+            <div
+              v-else-if="!loadingChats && chats.length === 0"
+              class="text-center text-grey-7"
+            >
+              <q-icon size="lg" name="eva-people-outline" />
+              <p class="text-h6 q-mt-md">
+                {{ $t("common.conversations") }}
+              </p>
+            </div>
+            <div class="row q-col-gutter-md" v-if="chats.length > 0">
+              <div class="col-12" v-for="chat in chats" :key="chat.id">
+                <chat-card
+                  :chat="chat"
+                  :is-selected="selectedChat && selectedChat.id === chat.id"
+                  @selected="onSelectChat(chat)"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-12 main-messages-container" v-else>
+            <div
+              class="row q-col-gutter-md"
+              v-if="!loadingMessages && selectedChat"
+            >
+              <div class="col-12">
+                <q-btn
+                  color="white"
+                  flat
+                  icon="eva-arrow-ios-back-outline"
+                  @click="selectedChat = null"
+                />
+
+                {{
+                  user.id === selectedChat.from_user
+                    ? selectedChat.to_user_name
+                    : selectedChat.from_user_name
+                }}
+                <q-separator class="q-mt-sm" />
+              </div>
+              <div class="col-12 messages-container">
+                <q-chat-message
+                  v-for="message in messages"
+                  :key="message.id"
+                  :text="[message.message]"
+                  :sent="user.id === message.user_id"
+                />
+              </div>
+              <div class="col-12">
+                <q-input
+                  @keyup.enter="sendMessage"
+                  :placeholder="`${$t('common.sendMessage')}...`"
+                  v-model="message"
+                  outlined
+                >
+                  <template v-slot:append v-if="message">
+                    <q-btn
+                      @click="sendMessage"
+                      flat
+                      color="primary"
+                      :label="$t('common.sendMessage')"
+                    />
+                  </template>
+                </q-input>
+              </div>
+            </div>
+
+            <div v-if="loadingMessages" class="text-center">
+              <q-spinner color="primary" size="3em" />
+            </div>
+            <div
+              class="text-center text-grey-7"
+              v-else-if="
+                !loadingMessages && messages.length === 0 && !selectedChat
+              "
+            >
+              <q-icon size="lg" name="eva-message-circle-outline" />
+              <p class="text-h6 q-mt-md">{{ $t("common.yourMessages") }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Desktop -->
+        <div class="row q-col-gutter-md" v-else>
           <div class="col-sm-4 chats-container q-mt-md">
             <div v-if="loadingChats" class="text-center">
               <q-spinner color="primary" size="3em" />
@@ -344,5 +431,11 @@ export default {
 }
 .main-messages-container {
   min-height: 350px;
+}
+/* Media query to set the height */
+@media (max-width: 768px) {
+  .messages-container {
+    min-height: 65vh !important;
+  }
 }
 </style>
