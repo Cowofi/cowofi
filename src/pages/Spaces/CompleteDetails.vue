@@ -120,7 +120,7 @@
               :label="$t('action.reserveSpace')"
             />
             <q-dialog v-model="showScheduleForm">
-              <q-card style="width: 700px; max-width: 80vw">
+              <q-card style="width: 400px; max-width: 80vw">
                 <q-card-section class="row items-center q-pb-none">
                   <div class="text-h6">{{ $t("action.reserveSpace") }}</div>
                   <q-space />
