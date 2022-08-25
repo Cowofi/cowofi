@@ -75,7 +75,7 @@
           <p class="text-h5 text-white">{{ $t("common.spaceTypes") }}</p>
         </div>
         <div
-          class="col-xs-12 col-sm-6 col-md-3"
+          class="col-xs-6 col-sm-6 col-md-3"
           v-for="spaceType in spaceTypes"
           :key="spaceType.value"
         >
@@ -86,7 +86,7 @@
             <template v-slot:img>
               <img
                 width="50"
-                style="border-radius: 4px; min-height: 38"
+                style="border-radius: 4px; height: 38px"
                 :src="spaceType.img"
               />
             </template>
