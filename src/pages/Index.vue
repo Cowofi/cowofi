@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="row justify-center items-center">
+    <div class="row q-col-gutter-md justify-center items-center">
       <div class="col-sm-4 col-xs-12">
         <p class="text-h3 text-bold">
           {{ $t("messages.information.findPerfectWorkingSpaceNearYou") }}!
