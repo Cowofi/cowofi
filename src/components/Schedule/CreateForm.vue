@@ -79,7 +79,7 @@
         </template>
       </q-input>
     </div>
-    <div class="col-12 text-center">
+    <div class="col-12 text-center q-my-md">
       <q-btn
         :loading="loading"
         @click="createSchedule"
