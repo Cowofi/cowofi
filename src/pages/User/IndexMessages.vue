@@ -92,7 +92,6 @@ import { useAuthStore } from "src/stores/Auth";
 import { Notify } from "quasar";
 import { useRoute } from "vue-router";
 import ChatCard from "components/Messages/ChatCard.vue";
-import { v4 } from "uuid";
 
 export default {
   name: "PageMessages",
