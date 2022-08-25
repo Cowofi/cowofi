@@ -95,7 +95,10 @@
         <div class="col-12">
           <p class="text-h5 text-white">{{ $t("common.mostRecentSpaces") }}</p>
           <q-scroll-area
-            style="height: 280px; max-width: 100%"
+            :style="{
+              height: $q.screen.xs ? '500px' : '280px',
+              maxWidth: '100%',
+            }"
             v-if="!loadingSpaces"
           >
             <div class="row no-wrap">
