@@ -46,6 +46,7 @@
       </q-avatar>
     </template>
     <template v-else>
+      <q-space />
       <q-btn
         push
         to="/auth/login"
