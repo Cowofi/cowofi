@@ -54,13 +54,14 @@
           <div class="q-my-md">
             <div class="row q-col-gutter-sm">
               <div
-                class="col-3"
+                class="col-xs-6 col-sm-3"
                 v-for="spaceType in spaceTypes"
                 :key="spaceType.value"
               >
                 <space-type-selection
                   :title="spaceType.title"
                   @click="space.type = spaceType.value"
+                  :is-selected="space.type === spaceType.value"
                 >
                   <template v-slot:img>
                     <img width="50" :src="spaceType.img" />
