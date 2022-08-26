@@ -96,7 +96,7 @@
           </div>
           <div class="q-mt-md">
             <q-btn
-              class="q-mr-sm"
+              class="q-mr-sm q-my-xs"
               unelevated
               v-for="day in space.available_week_days"
               :key="day"
