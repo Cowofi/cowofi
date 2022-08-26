@@ -2,24 +2,23 @@
   <q-card class="type-card-container">
     <q-card-section>
       <div class="row justify-center items-center">
-        <div class="col-4">
+        <div class="col-xs-12 col-md-4">
           <slot name="img"></slot>
         </div>
-        <div class="col-8">
+        <div class="col-xs-12 col-md-8">
           <span class="text-bold">{{ title }}</span>
-        </div>
-        <div class="col-12">
-          {{ $t("action.viewMore") }}
-          <q-btn
-            :to="to"
-            flat
-            round
-            :text-color="$q.dark.isActive ? 'white' : 'black'"
-            icon="eva-arrow-circle-right-outline"
-          />
         </div>
       </div>
     </q-card-section>
+    <q-card-actions align="left">
+      <q-btn
+        :to="to"
+        flat
+        :text-color="$q.dark.isActive ? 'white' : 'black'"
+        icon="eva-arrow-circle-right-outline"
+        :label="$t('action.viewMore')"
+      />
+    </q-card-actions>
   </q-card>
 </template>
 
@@ -44,6 +43,6 @@ export default {
 <style>
 .type-card-container {
   max-width: 250px;
-  height: 120px;
+  height: 100%;
 }
 </style>

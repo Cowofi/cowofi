@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="row justify-center items-center">
+    <div class="row q-col-gutter-md justify-center items-center">
       <div class="col-sm-4 col-xs-12">
         <p class="text-h3 text-bold">
           {{ $t("messages.information.findPerfectWorkingSpaceNearYou") }}!
@@ -75,7 +75,7 @@
           <p class="text-h5 text-white">{{ $t("common.spaceTypes") }}</p>
         </div>
         <div
-          class="col-xs-12 col-sm-6 col-md-3"
+          class="col-xs-6 col-sm-6 col-md-3"
           v-for="spaceType in spaceTypes"
           :key="spaceType.value"
         >
@@ -86,7 +86,7 @@
             <template v-slot:img>
               <img
                 width="50"
-                style="border-radius: 4px; min-height: 38"
+                style="border-radius: 4px; height: 38px"
                 :src="spaceType.img"
               />
             </template>
@@ -95,7 +95,10 @@
         <div class="col-12">
           <p class="text-h5 text-white">{{ $t("common.mostRecentSpaces") }}</p>
           <q-scroll-area
-            style="height: 280px; max-width: 100%"
+            :style="{
+              height: $q.screen.xs ? '500px' : '280px',
+              maxWidth: '100%',
+            }"
             v-if="!loadingSpaces"
           >
             <div class="row no-wrap">

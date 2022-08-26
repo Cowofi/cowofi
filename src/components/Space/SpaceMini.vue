@@ -22,7 +22,7 @@
             :src="asssetsRoute + space.photos[0].url"
             :style="{
               width: '100%',
-              height: '100%',
+              height: '150px',
               objectFit: 'cover',
             }"
           />
@@ -120,7 +120,7 @@ export default {
 </script>
 <style>
 .space-mini-container {
-  height: 246px;
+  min-height: 246px;
 }
 .space-mini-container img {
   max-width: 200px;
