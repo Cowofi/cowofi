@@ -151,7 +151,7 @@
           </div>
           <div>
             <q-btn
-              class="q-mr-sm"
+              class="q-mr-sm q-my-xs"
               unelevated
               v-for="day in weekdays"
               :key="day.value"
