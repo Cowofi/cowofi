@@ -55,6 +55,13 @@ const routes = [
         component: () => import('pages/Auth/ForgotPassword.vue'), meta: {
           isPublic: true
         }
+      },
+      {
+        path: 'reset-password',
+        name: 'PageResetPassword',
+        component: () => import('pages/Auth/ResetPassword.vue'), meta: {
+          isPublic: true
+        }
       }
     ]
   },
