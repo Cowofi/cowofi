@@ -91,6 +91,7 @@ export default {
       atLeast1Uppercase: "At least 1 uppercase",
       atLeast1Number: "At least 1 number",
       passwordMustContain: "Password must contain",
+      passwordChangedSuccessfully: "Password changed successfully",
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
