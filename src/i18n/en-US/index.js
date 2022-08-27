@@ -83,8 +83,10 @@ export default {
       youDonthaveAnyScheduleForYourSpace: "You don`t have any schedule for your space",
       VerifyEmailAddress: "Verify your email address",
       weSentEmail1: "We have sent you an email to",
-      weSentEmail2: "with a verification link.Please click the link to verify your email address."
-
+      weSentEmail2: "with a verification link.Please click the link to verify your email address.",
+      passwordRecoveryDescription: "Enter your email address and we will send you a link to reset your password.",
+      passwordRecoverySuccessMessage: "We have sent you an email to",
+      passwordRecoverySuccessMessage2: "with a link to reset your password."
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
@@ -107,6 +109,7 @@ export default {
     close: "Close",
     sendReservation: "Send Reservation",
     goToSpace: "Go to Space",
-    sendMessage: "Send message"
+    sendMessage: "Send message",
+    continue: "Continue",
   },
 };
