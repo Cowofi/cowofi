@@ -70,7 +70,7 @@
               :rules="[
                 (val) =>
                   isPasswordSecure(val) ||
-                  this.$t('messages.errors.passwordSecurity'),
+                  this.$t('messages.error.passwordSecurityDescription'),
               ]"
             />
             <q-input
@@ -82,7 +82,7 @@
               :rules="[
                 (val) =>
                   isPasswordSecure(val) ||
-                  this.$t('messages.errors.passwordSecurity'),
+                  this.$t('messages.error.passwordSecurityDescription'),
               ]"
             />
             <div class="text-center">
@@ -108,13 +108,10 @@
 import { Notify } from "quasar";
 import { ref } from "vue";
 import supabase from "boot/supabase";
-import { useRouter } from "vue-router";
-import { useAuthStore } from "stores/Auth";
 
 export default {
   name: "PageRegister",
   setup() {
-    const $router = useRouter();
     const fullname = ref("");
     const email = ref(null);
     const password = ref(null);
