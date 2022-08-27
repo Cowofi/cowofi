@@ -86,13 +86,18 @@ export default {
       weSentEmail2: "with a verification link.Please click the link to verify your email address.",
       passwordRecoveryDescription: "Enter your email address and we will send you a link to reset your password.",
       passwordRecoverySuccessMessage: "We have sent you an email to",
-      passwordRecoverySuccessMessage2: "with a link to reset your password."
+      passwordRecoverySuccessMessage2: "with a link to reset your password.",
+      atLeast8Characters: "At least 8 characters",
+      atLeast1Uppercase: "At least 1 uppercase",
+      atLeast1Number: "At least 1 number",
+      passwordMustContain: "Password must contain",
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
       pleaseEnterADescription:
         "Please enter a description, it`s important to attract more people",
       pleaseEnterPrice: "Please enter price",
+      passwordSecurityDescription: "Password not secure enough",
     },
   },
   action: {
@@ -111,5 +116,6 @@ export default {
     goToSpace: "Go to Space",
     sendMessage: "Send message",
     continue: "Continue",
+    changePassword: "Change Password",
   },
 };
