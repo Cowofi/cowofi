@@ -83,14 +83,22 @@ export default {
       youDonthaveAnyScheduleForYourSpace: "You don`t have any schedule for your space",
       VerifyEmailAddress: "Verify your email address",
       weSentEmail1: "We have sent you an email to",
-      weSentEmail2: "with a verification link.Please click the link to verify your email address."
-
+      weSentEmail2: "with a verification link.Please click the link to verify your email address.",
+      passwordRecoveryDescription: "Enter your email address and we will send you a link to reset your password.",
+      passwordRecoverySuccessMessage: "We have sent you an email to",
+      passwordRecoverySuccessMessage2: "with a link to reset your password.",
+      atLeast8Characters: "At least 8 characters",
+      atLeast1Uppercase: "At least 1 uppercase",
+      atLeast1Number: "At least 1 number",
+      passwordMustContain: "Password must contain",
+      passwordChangedSuccessfully: "Password changed successfully",
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
       pleaseEnterADescription:
         "Please enter a description, it`s important to attract more people",
       pleaseEnterPrice: "Please enter price",
+      passwordSecurityDescription: "Password not secure enough",
     },
   },
   action: {
@@ -107,6 +115,8 @@ export default {
     close: "Close",
     sendReservation: "Send Reservation",
     goToSpace: "Go to Space",
-    sendMessage: "Send message"
+    sendMessage: "Send message",
+    continue: "Continue",
+    changePassword: "Change Password",
   },
 };

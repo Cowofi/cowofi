@@ -127,6 +127,7 @@ import SpaceType from "components/Space/TypeCard.vue";
 import SpaceTypes from "src/utils/spaceTypes";
 import supabase from "boot/supabase";
 import SpaceMini from "components/Space/SpaceMini.vue";
+import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
   name: "IndexPage",
@@ -137,6 +138,18 @@ export default defineComponent({
   setup() {
     const spaces = ref([]);
     const loadingSpaces = ref(true);
+
+    const route = useRoute();
+    const router = useRouter();
+
+    const { query } = route;
+
+    if (query.access_token && query.type) {
+      router.push({
+        name: "PageResetPassword",
+        query: { access_token: query.access_token, type: query.type },
+      });
+    }
 
     const spacesSubscription = supabase
       .from("spaces")
