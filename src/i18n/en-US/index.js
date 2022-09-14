@@ -66,7 +66,9 @@ export default {
     yourMessages: "Your Messages",
     conversations: "Conversations",
     message: "Message",
-    sendMessage: 'Send message'
+    sendMessage: 'Send message',
+    giveFeedback: "Give Feedback",
+    comment: "Comment"
   },
   messages: {
     information: {
@@ -92,6 +94,8 @@ export default {
       atLeast1Number: "At least 1 number",
       passwordMustContain: "Password must contain",
       passwordChangedSuccessfully: "Password changed successfully",
+      howDidweDo: "How did we do?",
+      careShareMoreAboutIt: "Care to share more about it?",
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
@@ -118,5 +122,6 @@ export default {
     sendMessage: "Send message",
     continue: "Continue",
     changePassword: "Change Password",
+    publishFeedback: "Publish Feedback",
   },
 };
