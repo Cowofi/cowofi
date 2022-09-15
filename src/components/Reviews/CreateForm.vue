@@ -26,6 +26,7 @@
     <div class="col-12 text-center">
       <q-btn
         :disabled="rating === 0"
+        :loading="loading"
         @click="submit"
         push
         color="primary"
@@ -41,13 +42,25 @@ import { ref } from "vue";
 
 export default {
   name: "ComponentReviewForm",
-  setup() {
+  props: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props, { emit }) {
     const rating = ref(0);
     const comment = ref("");
 
     return {
       rating,
       comment,
+      submit() {
+        emit("on-created", {
+          rating: rating.value,
+          comment: comment.value,
+        });
+      },
     };
   },
 };
