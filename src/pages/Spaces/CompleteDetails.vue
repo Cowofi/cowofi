@@ -169,6 +169,25 @@
           </div>
         </q-card-section>
       </q-card>
+      <q-card flat bordered class="q-mt-md">
+        <q-card-section>
+          <p class="text-h5">{{ $t("common.reviews") }}</p>
+          <div class="row">
+            <template v-if="reviews.length > 0">
+              <div class="col-12" v-for="review in reviews" :key="review.id">
+                <review-card :review="review" />
+              </div>
+            </template>
+            <template v-else>
+              <div class="col-12">
+                <div class="text-grey text-italic q-my-md">
+                  {{ $t("messages.information.noReviewsYet") }}
+                </div>
+              </div>
+            </template>
+          </div>
+        </q-card-section>
+      </q-card>
       <q-dialog v-model="showReviewForm">
         <q-card style="width: 400px; max-width: 80vw">
           <q-card-section class="row items-center q-pb-none">
@@ -201,10 +220,17 @@ import ViewLocation from "components/Map/ViewLocation.vue";
 import { useAuthStore } from "stores/Auth";
 import ScheduleFormCreation from "components/Schedule/CreateForm.vue";
 import ReviewForm from "components/Reviews/CreateForm.vue";
+import ReviewCard from "components/Reviews/ReviewCard.vue";
 
 export default {
   name: "PageCompleteSpaceDetails",
-  components: { ViewLocation, ScheduleFormCreation, notFound, ReviewForm },
+  components: {
+    ViewLocation,
+    ScheduleFormCreation,
+    notFound,
+    ReviewForm,
+    ReviewCard,
+  },
   setup() {
     const loading = ref(true);
     const space = ref({
@@ -219,6 +245,7 @@ export default {
     const notFound = ref(false);
     const showReviewForm = ref(false);
     const loadingReviewSubmit = ref(false);
+    const reviews = ref([]);
 
     supabase
       .from("spaces")
@@ -230,6 +257,16 @@ export default {
           spaceType.value = spaceTypes.find(
             (type) => type.value === space.value.type
           );
+
+          supabase
+            .from("reviews")
+            .select("*, users(raw_user_meta_data)")
+            .eq("space_id", spaceId)
+            .then(({ error, data }) => {
+              if (data) {
+                reviews.value = data;
+              }
+            });
         } else {
           notFound.value = True;
           Notify.create({
@@ -253,6 +290,7 @@ export default {
       loading,
       showReviewForm,
       loadingReviewSubmit,
+      reviews,
       getWeekDayLabel(day) {
         return weekdays.find((d) => d.value === day).label;
       },
