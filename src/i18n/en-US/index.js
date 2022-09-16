@@ -97,6 +97,7 @@ export default {
       passwordChangedSuccessfully: "Password changed successfully",
       howDidweDo: "How did we do?",
       careShareMoreAboutIt: "Care to share more about it?",
+      noReviewsYet: "No reviews yet",
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
