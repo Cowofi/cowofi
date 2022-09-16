@@ -68,7 +68,8 @@ export default {
     message: "Message",
     sendMessage: 'Send message',
     giveFeedback: "Give Feedback",
-    comment: "Comment"
+    comment: "Comment",
+    reviews: "Reviews",
   },
   messages: {
     information: {
