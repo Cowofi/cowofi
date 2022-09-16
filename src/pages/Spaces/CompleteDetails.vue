@@ -173,7 +173,25 @@
         <q-card-section>
           <p class="text-h5">{{ $t("common.reviews") }}</p>
           <div class="row">
-            <template v-if="reviews.length > 0">
+            <template v-if="loadingReviews">
+              <div class="col-12" v-for="i in 4" :key="i">
+                <q-item>
+                  <q-item-section avatar>
+                    <q-skeleton type="QAvatar" />
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-item-label>
+                      <q-skeleton width="150px" type="text" />
+                    </q-item-label>
+                    <q-item-label caption>
+                      <q-skeleton width="150px" type="text" />
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+              </div>
+            </template>
+            <template v-else-if="reviews.length > 0">
               <div class="col-12" v-for="review in reviews" :key="review.id">
                 <review-card :review="review" />
               </div>
@@ -246,6 +264,7 @@ export default {
     const showReviewForm = ref(false);
     const loadingReviewSubmit = ref(false);
     const reviews = ref([]);
+    const loadingReviews = ref(true);
 
     supabase
       .from("spaces")
@@ -262,10 +281,11 @@ export default {
             .from("reviews")
             .select("*, users(raw_user_meta_data)")
             .eq("space_id", spaceId)
-            .then(({ error, data }) => {
+            .then(({ data }) => {
               if (data) {
                 reviews.value = data;
               }
+              loadingReviews.value = false;
             });
         } else {
           notFound.value = True;
@@ -291,6 +311,7 @@ export default {
       showReviewForm,
       loadingReviewSubmit,
       reviews,
+      loadingReviews,
       getWeekDayLabel(day) {
         return weekdays.find((d) => d.value === day).label;
       },
