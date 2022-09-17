@@ -280,7 +280,7 @@ export default {
         });
       }
 
-      if (data && data[0] && data[0].accepted_by_owner === true) {
+      if (data && data[0] && data[0].status === "pending") {
         showReviewForm.value = true;
       }
     };
