@@ -125,5 +125,7 @@ export default {
     continue: "Continue",
     changePassword: "Change Password",
     publishFeedback: "Publish Feedback",
+    accept: "Accept",
+    reject: "Reject",
   },
 };
