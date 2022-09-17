@@ -29,6 +29,13 @@
                   )} ${$t("common.days")}`
             }}
           </q-chip>
+          <q-chip
+            :color="getStatusColor(schedule.status)"
+            :text-color="schedule.status === 'pending' ? 'black' : 'white'"
+            size="10px"
+          >
+            {{ $t(`common.${schedule.status}`) }}
+          </q-chip>
         </div>
         <div class="col-12">
           <q-icon size="xs" name="eva-clock-outline" />
@@ -116,6 +123,18 @@ export default {
       },
       onReject() {
         emit("reject");
+      },
+      getStatusColor(status) {
+        switch (status) {
+          case "pending":
+            return "grey-4";
+          case "accepted":
+            return "primary";
+          case "rejected":
+            return "negative";
+          default:
+            return "grey-4";
+        }
       },
     };
   },
