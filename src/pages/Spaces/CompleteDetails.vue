@@ -266,6 +266,25 @@ export default {
     const reviews = ref([]);
     const loadingReviews = ref(true);
 
+    const fetchScheduleByTheLoggedUser = async () => {
+      const { data, error } = await supabase
+        .from("schedules")
+        .select("*")
+        .eq("user_id", authStore.user.id)
+        .eq("space_id", spaceId);
+
+      if (error) {
+        Notify.create({
+          message: error.message,
+          color: "negative",
+        });
+      }
+
+      if (data && data[0] && data[0].accepted_by_owner === true) {
+        showReviewForm.value = true;
+      }
+    };
+
     supabase
       .from("spaces")
       .select("*, photos(url), users(raw_user_meta_data)")
@@ -295,6 +314,10 @@ export default {
           });
         }
         loading.value = false;
+
+        if (authStore.user && authStore.user.id) {
+          fetchScheduleByTheLoggedUser();
+        }
       });
 
     return {
