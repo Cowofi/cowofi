@@ -70,6 +70,9 @@ export default {
     giveFeedback: "Give Feedback",
     comment: "Comment",
     reviews: "Reviews",
+    accepted: "Accepted",
+    rejected: "Rejected",
+    pending: "Pending",
   },
   messages: {
     information: {
