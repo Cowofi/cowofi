@@ -29,11 +29,41 @@
                   )} ${$t("common.days")}`
             }}
           </q-chip>
+          <q-chip
+            :color="getStatusColor(schedule.status)"
+            :text-color="schedule.status === 'pending' ? 'black' : 'white'"
+            size="10px"
+          >
+            {{ $t(`common.${schedule.status}`) }}
+          </q-chip>
         </div>
         <div class="col-12">
           <q-icon size="xs" name="eva-clock-outline" />
           {{ $t("common.at") }} {{ parseTime(schedule.from_time) }} -
           {{ parseTime(schedule.to_time) }}
+        </div>
+        <div class="col-12" v-if="showActions">
+          <div class="row q-col-gutter-md">
+            <div class="col-6">
+              <q-btn
+                :loading="loading"
+                @click="onAccept()"
+                push
+                color="primary"
+                text-color="white"
+                :label="$t('action.accept')"
+              />
+            </div>
+            <div class="col-6 text-right">
+              <q-btn
+                :loading="loading"
+                @click="onReject()"
+                push
+                color="negative"
+                :label="$t('action.reject')"
+              />
+            </div>
+          </div>
         </div>
         <div class="col-12">
           <q-separator />
@@ -61,9 +91,17 @@ export default {
       type: Object,
       required: true,
     },
+    showActions: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: { SpaceMinimal },
-  setup() {
+  setup(_, { emit }) {
     const $t = useI18n().t;
 
     return {
@@ -79,6 +117,24 @@ export default {
         const toDate = dayjs(to);
         const diff = toDate.diff(fromDate, "days");
         return diff + " " + $t("common.days");
+      },
+      onAccept() {
+        emit("accept");
+      },
+      onReject() {
+        emit("reject");
+      },
+      getStatusColor(status) {
+        switch (status) {
+          case "pending":
+            return "grey-4";
+          case "accepted":
+            return "primary";
+          case "rejected":
+            return "negative";
+          default:
+            return "grey-4";
+        }
       },
     };
   },

@@ -1,4 +1,10 @@
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+const timeAgo = (time) => {
+  dayjs.extend(relativeTime);
+  return dayjs(time).fromNow();
+};
 
 const parseTime = (time) => {
   return dayjs("2012-01-25" + time).format("hh:mm A");
@@ -35,4 +41,4 @@ const weekdays = [
   },
 ];
 
-export { parseTime, weekdays };
+export { parseTime, weekdays, timeAgo };

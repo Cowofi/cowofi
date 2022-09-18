@@ -169,6 +169,59 @@
           </div>
         </q-card-section>
       </q-card>
+      <q-card flat bordered class="q-mt-md">
+        <q-card-section>
+          <p class="text-h5">{{ $t("common.reviews") }}</p>
+          <div class="row">
+            <template v-if="loadingReviews">
+              <div class="col-12" v-for="i in 4" :key="i">
+                <q-item>
+                  <q-item-section avatar>
+                    <q-skeleton type="QAvatar" />
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-item-label>
+                      <q-skeleton width="150px" type="text" />
+                    </q-item-label>
+                    <q-item-label caption>
+                      <q-skeleton width="150px" type="text" />
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+              </div>
+            </template>
+            <template v-else-if="reviews.length > 0">
+              <div class="col-12" v-for="review in reviews" :key="review.id">
+                <review-card :review="review" />
+              </div>
+            </template>
+            <template v-else>
+              <div class="col-12">
+                <div class="text-grey text-italic q-my-md">
+                  {{ $t("messages.information.noReviewsYet") }}
+                </div>
+              </div>
+            </template>
+          </div>
+        </q-card-section>
+      </q-card>
+      <q-dialog v-model="showReviewForm">
+        <q-card style="width: 400px; max-width: 80vw">
+          <q-card-section class="row items-center q-pb-none">
+            <div class="text-h6">{{ $t("common.giveFeedback") }}</div>
+            <q-space />
+            <q-btn icon="eva-close-outline" flat round dense v-close-popup />
+          </q-card-section>
+
+          <q-card-section class="q-pt-md">
+            <review-form
+              :loading="loadingReviewSubmit"
+              @on-created="handleSubmitReview"
+            />
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </div>
   </q-page>
 </template>
@@ -184,10 +237,18 @@ import notFound from "components/Interface/404.vue";
 import ViewLocation from "components/Map/ViewLocation.vue";
 import { useAuthStore } from "stores/Auth";
 import ScheduleFormCreation from "components/Schedule/CreateForm.vue";
+import ReviewForm from "components/Reviews/CreateForm.vue";
+import ReviewCard from "components/Reviews/ReviewCard.vue";
 
 export default {
   name: "PageCompleteSpaceDetails",
-  components: { ViewLocation, ScheduleFormCreation, notFound },
+  components: {
+    ViewLocation,
+    ScheduleFormCreation,
+    notFound,
+    ReviewForm,
+    ReviewCard,
+  },
   setup() {
     const loading = ref(true);
     const space = ref({
@@ -200,6 +261,29 @@ export default {
     const showScheduleForm = ref(false);
     const authStore = useAuthStore();
     const notFound = ref(false);
+    const showReviewForm = ref(false);
+    const loadingReviewSubmit = ref(false);
+    const reviews = ref([]);
+    const loadingReviews = ref(true);
+
+    const fetchScheduleByTheLoggedUser = async () => {
+      const { data, error } = await supabase
+        .from("schedules")
+        .select("*")
+        .eq("user_id", authStore.user.id)
+        .eq("space_id", spaceId);
+
+      if (error) {
+        Notify.create({
+          message: error.message,
+          color: "negative",
+        });
+      }
+
+      if (data && data[0] && data[0].status === "pending") {
+        showReviewForm.value = true;
+      }
+    };
 
     supabase
       .from("spaces")
@@ -211,6 +295,17 @@ export default {
           spaceType.value = spaceTypes.find(
             (type) => type.value === space.value.type
           );
+
+          supabase
+            .from("reviews")
+            .select("*, users(raw_user_meta_data)")
+            .eq("space_id", spaceId)
+            .then(({ data }) => {
+              if (data) {
+                reviews.value = data;
+              }
+              loadingReviews.value = false;
+            });
         } else {
           notFound.value = True;
           Notify.create({
@@ -219,6 +314,10 @@ export default {
           });
         }
         loading.value = false;
+
+        if (authStore.user && authStore.user.id) {
+          fetchScheduleByTheLoggedUser();
+        }
       });
 
     return {
@@ -232,6 +331,10 @@ export default {
       authStore,
       showScheduleForm,
       loading,
+      showReviewForm,
+      loadingReviewSubmit,
+      reviews,
+      loadingReviews,
       getWeekDayLabel(day) {
         return weekdays.find((d) => d.value === day).label;
       },
@@ -267,6 +370,34 @@ export default {
           })
           .finally(() => {
             loading.value = false;
+          });
+      },
+      handleSubmitReview({ rating, comment }) {
+        const { id } = space.value;
+        loadingReviewSubmit.value = true;
+        supabase
+          .from("reviews")
+          .insert({
+            space_id: id,
+            rating,
+            comment,
+          })
+          .then(({ error, data }) => {
+            if (data) {
+              Notify.create({
+                color: "positive",
+                message: "Review created successfully",
+              });
+              showReviewForm.value = false;
+            } else {
+              Notify.create({
+                color: "negative",
+                message: error.message,
+              });
+            }
+          })
+          .finally(() => {
+            loadingReviewSubmit.value = false;
           });
       },
     };

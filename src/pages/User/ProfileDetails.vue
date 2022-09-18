@@ -70,7 +70,13 @@
                   :key="schedule.id"
                   class="q-my-md"
                 >
-                  <schedule-mini-card :schedule="schedule" />
+                  <schedule-mini-card
+                    :schedule="schedule"
+                    :show-actions="schedule.status === 'pending'"
+                    :loading="loadingScheduleStatusChange"
+                    @accept="onAcceptSchedule(schedule)"
+                    @reject="onRejectSchedule(schedule)"
+                  />
                 </div>
                 <div
                   v-if="
@@ -116,6 +122,7 @@ export default {
     const loadingSpaces = ref(true);
     const loadingSchedules = ref(true);
     const loadingSchedulesSpaces = ref(true);
+    const loadingScheduleStatusChange = ref(false);
 
     supabase
       .from("spaces")
@@ -180,6 +187,57 @@ export default {
       loadingSpaces,
       loadingSchedules,
       loadingSchedulesSpaces,
+      loadingScheduleStatusChange,
+      onAcceptSchedule(schedule) {
+        loadingScheduleStatusChange.value = true;
+        supabase
+          .from("schedules")
+          .update({ status: "accepted" })
+          .eq("id", schedule.id)
+          .then(({ data, error }) => {
+            if (error) {
+              Notify.create({
+                color: "negative",
+                textColor: "white",
+                message: error.message,
+              });
+            } else {
+              Notify.create({
+                color: "positive",
+                textColor: "white",
+                message: "Schedule accepted",
+              });
+
+              schedule.status = "accepted";
+            }
+            loadingScheduleStatusChange.value = false;
+          });
+      },
+      onRejectSchedule(schedule) {
+        loadingScheduleStatusChange.value = true;
+        supabase
+          .from("schedules")
+          .update({ status: "rejected" })
+          .eq("id", schedule.id)
+          .then(({ data, error }) => {
+            if (error) {
+              Notify.create({
+                color: "negative",
+                textColor: "white",
+                message: error.message,
+              });
+            } else {
+              Notify.create({
+                color: "positive",
+                textColor: "white",
+                message: "Schedule rejected",
+              });
+
+              schedule.status = "rejected";
+            }
+            loadingScheduleStatusChange.value = false;
+          });
+      },
     };
   },
 };
