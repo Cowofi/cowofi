@@ -6,6 +6,7 @@
     <div v-else>
       <q-card flat bordered>
         <q-card-section>
+          <ShareButton />
           <q-carousel animated v-model="slide" arrows thumbnails infinite>
             <q-carousel-slide
               v-for="(photo, index) in space.photos"
@@ -239,6 +240,7 @@ import { useAuthStore } from "stores/Auth";
 import ScheduleFormCreation from "components/Schedule/CreateForm.vue";
 import ReviewForm from "components/Reviews/CreateForm.vue";
 import ReviewCard from "components/Reviews/ReviewCard.vue";
+import ShareButton from "components/buttons/ShareButton.vue";
 
 export default {
   name: "PageCompleteSpaceDetails",
@@ -248,6 +250,7 @@ export default {
     notFound,
     ReviewForm,
     ReviewCard,
+    ShareButton,
   },
   setup() {
     const loading = ref(true);
@@ -335,6 +338,7 @@ export default {
       loadingReviewSubmit,
       reviews,
       loadingReviews,
+      ShareButton,
       getWeekDayLabel(day) {
         return weekdays.find((d) => d.value === day).label;
       },
