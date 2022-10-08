@@ -1,8 +1,8 @@
 <template>
-  <div class="q-pa-md q-gutter-sm">
+  <div class="q-pa-md q-gutter-sm flex justify-end">
     <q-btn
       color="primary"
-      label="shared"
+      label="share"
       icon="eva-share-outline"
       class="flex justify-end"
       :onclick="handleShowModal"
