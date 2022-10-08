@@ -15,13 +15,26 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none flex flex-center" style="gap: 10px">
-          <q-btn
-            icon="eva-facebook"
-            color="blue-14"
-            round
-            @click="handleFacebookShared"
-          />
-          <q-btn icon="eva-twitter" color="blue-5" round />
+          <ShareNetwork
+            network="facebook"
+            :url="url"
+            :description="getTitle"
+            title="CoWoFi - Find your space much easier"
+            hashtags="CoWoFi,cowofi,spaces,working"
+            style="text-decoration: none"
+          >
+            <q-btn icon="eva-facebook" color="blue-14" round />
+          </ShareNetwork>
+
+          <ShareNetwork
+            network="twitter"
+            :url="url"
+            :title="getTitle"
+            hashtags="CoWoFi,cowofi,spaces,working"
+            style="text-decoration: none"
+          >
+            <q-btn icon="eva-twitter" color="blue-5" round />
+          </ShareNetwork>
         </q-card-section>
 
         <q-card-actions align="center">
@@ -34,13 +47,16 @@
 
 <script>
 import { defineComponent } from "vue";
-import { shareOnFacebook } from "../../utils/socialMedia";
 
 export default defineComponent({
   name: "ShareButton",
+  props: ["placeToShare"],
   data() {
     return {
       showModal: false,
+      title: this.$props.placeToShare.space.description,
+      url:
+        "https://cowofi.netlify.app/spaces/view/" + this.$route.params.spaceId,
     };
   },
   methods: {
@@ -50,8 +66,10 @@ export default defineComponent({
     closeModal() {
       this.$data.showModal = false;
     },
-    handleFacebookShared() {
-      shareOnFacebook();
+  },
+  computed: {
+    getTitle() {
+      return this.title.toString();
     },
   },
 });

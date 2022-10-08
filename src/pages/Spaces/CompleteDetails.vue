@@ -6,7 +6,7 @@
     <div v-else>
       <q-card flat bordered>
         <q-card-section>
-          <ShareButton />
+          <ShareButton :placeToShare="{ space }" />
           <q-carousel animated v-model="slide" arrows thumbnails infinite>
             <q-carousel-slide
               v-for="(photo, index) in space.photos"
