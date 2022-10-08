@@ -69,7 +69,7 @@ export default defineComponent({
   },
   computed: {
     getTitle() {
-      return this.title.toString();
+      return this.$data.title.toString();
     },
   },
 });
