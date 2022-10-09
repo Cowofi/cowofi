@@ -53,8 +53,6 @@ module.exports = configure(function (/* ctx */) {
         SUPABASE_PROJECT_URL: process.env.SUPABASE_PROJECT_URL,
         SUPABASE_ANON_PUBLIC_KEY: process.env.SUPABASE_ANON_PUBLIC_KEY,
         ACCESS_TOKEN: process.env.ACCESS_TOKEN,
-        TWITTER_API_KEY: process.env.TWITTER_API_KEY,
-        TWITTER_API_KEY_SECRET: process.env.TWITTER_API_KEY_SECRET,
         ...require("dotenv").config().parsed,
       },
       target: {
