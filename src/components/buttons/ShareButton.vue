@@ -1,13 +1,12 @@
 <template>
-  <div class="q-pa-md q-gutter-sm flex justify-end">
-    <q-btn
-      color="primary"
-      label="share"
-      icon="eva-share-outline"
-      class="flex justify-end"
-      :onclick="handleShowModal"
-    />
-
+  <q-btn
+    push
+    color="primary"
+    label="share"
+    icon="eva-share-outline"
+    :onclick="handleShowModal"
+    style="position: absolute; z-index: 999; left: 85%; top: 5%"
+  >
     <q-dialog v-model="showModal" persistent>
       <q-card>
         <q-card-section>
@@ -23,7 +22,7 @@
             hashtags="CoWoFi,cowofi,spaces,working"
             style="text-decoration: none"
           >
-            <q-btn icon="eva-facebook" color="blue-14" round />
+            <q-btn push icon="eva-facebook" color="blue-14" round />
           </ShareNetwork>
 
           <ShareNetwork
@@ -33,16 +32,16 @@
             hashtags="CoWoFi,cowofi,spaces,working"
             style="text-decoration: none"
           >
-            <q-btn icon="eva-twitter" color="blue-5" round />
+            <q-btn push icon="eva-twitter" color="blue-5" round />
           </ShareNetwork>
         </q-card-section>
 
         <q-card-actions align="center">
-          <q-btn flat label="Close" color="secondary" v-close-popup />
+          <q-btn push flat label="Close" color="secondary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
-  </div>
+  </q-btn>
 </template>
 
 <script>
@@ -69,7 +68,7 @@ export default defineComponent({
   },
   computed: {
     getTitle() {
-      return this.$data.title.toString();
+      return this.$data.title;
     },
   },
 });

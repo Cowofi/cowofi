@@ -5,7 +5,7 @@
     </div>
     <div v-else>
       <q-card flat bordered>
-        <q-card-section>
+        <q-card-section class="relative-position">
           <ShareButton :placeToShare="{ space }" />
           <q-carousel animated v-model="slide" arrows thumbnails infinite>
             <q-carousel-slide
