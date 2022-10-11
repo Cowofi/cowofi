@@ -17,7 +17,7 @@
           <ShareNetwork
             network="facebook"
             :url="url"
-            :description="getTitle"
+            :description="placeToShare.space.description"
             title="CoWoFi - Find your space much easier"
             hashtags="CoWoFi,cowofi,spaces,working"
             style="text-decoration: none"
@@ -28,7 +28,7 @@
           <ShareNetwork
             network="twitter"
             :url="url"
-            :title="getTitle"
+            :title="placeToShare.space.description"
             hashtags="CoWoFi,cowofi,spaces,working"
             style="text-decoration: none"
           >
@@ -53,7 +53,6 @@ export default defineComponent({
   data() {
     return {
       showModal: false,
-      title: this.$props.placeToShare.space.description,
       url:
         "https://cowofi.netlify.app/spaces/view/" + this.$route.params.spaceId,
     };
@@ -64,11 +63,6 @@ export default defineComponent({
     },
     closeModal() {
       this.$data.showModal = false;
-    },
-  },
-  computed: {
-    getTitle() {
-      return this.$data.title;
     },
   },
 });
