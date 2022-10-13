@@ -31,8 +31,8 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
       'i18n',
-      'supabase'
-
+      'supabase',
+      'socialSharing'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -55,7 +55,7 @@ module.exports = configure(function (/* ctx */) {
     ],
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
-    build: {
+    build: {  
       env: {
         SUPABASE_PROJECT_URL: process.env.SUPABASE_PROJECT_URL,
         SUPABASE_ANON_PUBLIC_KEY: process.env.SUPABASE_ANON_PUBLIC_KEY,
