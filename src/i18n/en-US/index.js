@@ -101,6 +101,8 @@ export default {
       howDidweDo: "How did we do?",
       careShareMoreAboutIt: "Care to share more about it?",
       noReviewsYet: "No reviews yet",
+      scheduleCreatedDescription: "Your schedule has been created successfully, you can see it in your profile",
+      scheduleCreatedSuccessfully: 'Schedule created successfully'
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
@@ -130,5 +132,6 @@ export default {
     publishFeedback: "Publish Feedback",
     accept: "Accept",
     reject: "Reject",
+    goToProfile: "Go to Profile"
   },
 };

@@ -223,6 +223,37 @@
           </q-card-section>
         </q-card>
       </q-dialog>
+      <q-dialog v-model="showScheduleSuccess">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6 text-center">{{$t('messages.information.scheduleCreatedSuccessfully')}}</div>
+          </q-card-section>
+          <q-card-section>
+            <img
+              src="/images/illustrations/confirmation.png"
+              width="250"
+              style="margin: auto; display: block"
+            />
+            <p>
+              {{ $t("messages.information.scheduleCreatedDescription") }}
+            </p>
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn
+              flat
+              :label="$t('action.close')"
+              color="primary"
+              v-close-popup
+            />
+            <q-btn
+              push
+              :label="$t('action.goToProfile')"
+              color="primary"
+              to="/profile"
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
   </q-page>
 </template>
@@ -268,6 +299,7 @@ export default {
     const loadingReviewSubmit = ref(false);
     const reviews = ref([]);
     const loadingReviews = ref(true);
+    const showScheduleSuccess = ref(false);
 
     const fetchScheduleByTheLoggedUser = async () => {
       const { data, error } = await supabase
@@ -339,6 +371,7 @@ export default {
       reviews,
       loadingReviews,
       ShareButton,
+      showScheduleSuccess,
       getWeekDayLabel(day) {
         return weekdays.find((d) => d.value === day).label;
       },
@@ -360,11 +393,8 @@ export default {
           })
           .then(({ error, data }) => {
             if (data) {
-              Notify.create({
-                color: "positive",
-                message: "Schedule created successfully",
-              });
               showScheduleForm.value = false;
+              showScheduleSuccess.value = true;
             } else {
               Notify.create({
                 color: "negative",
