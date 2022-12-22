@@ -102,7 +102,8 @@ export default {
       careShareMoreAboutIt: "Care to share more about it?",
       noReviewsYet: "No reviews yet",
       scheduleCreatedDescription: "Your schedule has been created successfully, you can see it in your profile",
-      scheduleCreatedSuccessfully: 'Schedule created successfully'
+      scheduleCreatedSuccessfully: 'Schedule created successfully',
+      noNotifications: "No notifications"
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
