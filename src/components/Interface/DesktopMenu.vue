@@ -54,6 +54,51 @@
           </q-list>
         </q-menu>
       </q-avatar>
+      <q-avatar
+        class="cursor-pointer q-ml-xs"
+        :color="$q.dark.isActive ? 'white' : 'grey-3'"
+        text-color="black"
+        @click="handleFetchNotifications"
+      >
+        <q-icon name="eva-bell-outline" />
+
+        <q-menu>
+          <template v-if="loadingNotifications">
+            <div
+              style="min-width: 300px; min-height: 300px; position: relative"
+            >
+              <q-spinner
+                color="primary"
+                size="3em"
+                style="position: absolute; top: 45%; left: 45%"
+              />
+            </div>
+          </template>
+          <template v-else>
+            <template v-if="notifications.length > 0">
+              <!-- TODO: -->
+            </template>
+            <template v-else>
+              <div
+                style="min-width: 300px; min-height: 300px; position: relative"
+              >
+                <p
+                  style="position: absolute; top: 45%; left: 35%"
+                  class="text-grey-6"
+                >
+                  {{ $t("messages.information.noNotifications") }}
+                </p>
+                <img
+                  style="position: absolute; left: 35%; top: 10%"
+                  src="/images/illustrations/no_results.png"
+                  width="100"
+                  alt="not found"
+                />
+              </div>
+            </template>
+          </template>
+        </q-menu>
+      </q-avatar>
     </template>
     <template v-else>
       <q-btn
@@ -92,6 +137,8 @@ export default {
     const $t = useI18n().t;
     const authStore = useAuthStore();
     const loading = ref(false);
+    const loadingNotifications = ref(false);
+    const notifications = ref([]);
     const $router = useRouter();
     const darkMode = ref(darkmodeFromLocalStorage || $q.dark.isActive);
     const linksList = [
@@ -109,12 +156,21 @@ export default {
       authStore,
       loading,
       darkMode,
+      loadingNotifications,
+      notifications,
       async logout() {
         loading.value = true;
         await supabase.auth.signOut();
         authStore.logout();
         loading.value = false;
         $router.push("/");
+      },
+      async handleFetchNotifications() {
+        loadingNotifications.value = true;
+
+        setTimeout(() => {
+          loadingNotifications.value = false;
+        }, 2000);
       },
       toggleDarkMode() {
         window.localStorage.setItem("darkMode", darkMode.value);
