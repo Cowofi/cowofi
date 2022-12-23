@@ -81,7 +81,13 @@
                 style="min-width: 300px; min-height: 300px; position: relative"
               >
                 <div class="text-right">
-                  <q-btn flat color="primary" :label="$t('action.readAll')" />
+                  <q-btn
+                    @click="handleReadAllNotifications"
+                    :loading="loadingReadAllNotifications"
+                    flat
+                    color="primary"
+                    :label="$t('action.markAllAsRead')"
+                  />
                 </div>
                 <q-list bordered separator>
                   <q-item
@@ -172,6 +178,7 @@ export default {
     const authStore = useAuthStore();
     const loading = ref(false);
     const loadingNotifications = ref(false);
+    const loadingReadAllNotifications = ref(false);
     const notifications = ref([]);
     const $router = useRouter();
     const darkMode = ref(darkmodeFromLocalStorage || $q.dark.isActive);
@@ -222,6 +229,7 @@ export default {
       darkMode,
       loadingNotifications,
       notifications,
+      loadingReadAllNotifications,
       hasUnreadNotifications() {
         return notifications.value.some((notification) => {
           return notification.read === false;
@@ -247,6 +255,13 @@ export default {
       },
       getTimeAgo(time) {
         return timeAgo(time);
+      },
+      handleReadAllNotifications() {
+        loadingReadAllNotifications.value = true;
+
+        setTimeout(() => {
+          loadingReadAllNotifications.value = false;
+        }, 2000);
       },
     };
   },
