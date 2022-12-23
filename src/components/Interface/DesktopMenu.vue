@@ -61,7 +61,8 @@
         @click="handleFetchNotifications"
       >
         <q-icon name="eva-bell-outline" />
-
+        <q-badge v-show="hasUnreadNotifications" color="red" rounded floating>
+        </q-badge>
         <q-menu>
           <template v-if="loadingNotifications">
             <div
@@ -76,7 +77,37 @@
           </template>
           <template v-else>
             <template v-if="notifications.length > 0">
-              <!-- TODO: -->
+              <div
+                style="min-width: 300px; min-height: 300px; position: relative"
+              >
+                <q-list bordered separator>
+                  <q-item
+                    clickable
+                    v-ripple
+                    v-for="notification in notifications"
+                    :key="notification.id"
+                  >
+                    <q-item-section>
+                      <q-badge
+                        color="primary"
+                        v-show="!notification.read"
+                        floating
+                        rounded
+                        style="top:35%; right: 2%"
+                      />
+
+                      {{
+                        notification.type === "message"
+                          ? `USERNAME ${$t("common.userSentYouAMessage")}`
+                          : "New follower"
+                      }}
+                      <q-item-label class="text-grey-6" caption>
+                        {{ getTimeAgo(notification.created_at) }}
+                      </q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </div>
             </template>
             <template v-else>
               <div
@@ -121,12 +152,13 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onBeforeUnmount } from "vue";
 import { useQuasar } from "quasar";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
 import supabase from "boot/supabase";
 import { useRouter } from "vue-router";
+import { timeAgo } from "src/utils/time";
 
 export default {
   name: "ComponentDesktopMenu",
@@ -151,6 +183,36 @@ export default {
         route: "/explorer",
       },
     ];
+    const fetchNotifications = async () => {
+      const { data, error } = await supabase
+        .from("notification")
+        .select("*")
+        .eq("to_user", authStore.user.id)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.log(error);
+      }
+      notifications.value = data;
+
+      return;
+    };
+
+    const notificationsSubscription = supabase
+      .from("notification")
+      .on("INSERT", (payload) => {
+        console.log(payload);
+      })
+      .subscribe();
+
+    onBeforeUnmount(() => {
+      supabase.removeSubscription(notificationsSubscription);
+    });
+
+    if (authStore.user.id) {
+      fetchNotifications();
+    }
+
     return {
       essentialLinks: linksList,
       authStore,
@@ -158,6 +220,11 @@ export default {
       darkMode,
       loadingNotifications,
       notifications,
+      hasUnreadNotifications() {
+        return notifications.value.some((notification) => {
+          return notification.read === false;
+        });
+      },
       async logout() {
         loading.value = true;
         await supabase.auth.signOut();
@@ -168,13 +235,16 @@ export default {
       async handleFetchNotifications() {
         loadingNotifications.value = true;
 
-        setTimeout(() => {
-          loadingNotifications.value = false;
-        }, 2000);
+        await fetchNotifications();
+
+        loadingNotifications.value = false;
       },
       toggleDarkMode() {
         window.localStorage.setItem("darkMode", darkMode.value);
         $q.dark.set(darkMode.value);
+      },
+      getTimeAgo(time) {
+        return timeAgo(time);
       },
     };
   },
