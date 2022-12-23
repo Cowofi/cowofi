@@ -80,6 +80,9 @@
               <div
                 style="min-width: 300px; min-height: 300px; position: relative"
               >
+                <div class="text-right">
+                  <q-btn flat color="primary" :label="$t('action.readAll')" />
+                </div>
                 <q-list bordered separator>
                   <q-item
                     clickable
@@ -93,9 +96,8 @@
                         v-show="!notification.read"
                         floating
                         rounded
-                        style="top:35%; right: 2%"
+                        style="top: 35%; right: 2%"
                       />
-
                       {{
                         notification.type === "message"
                           ? `USERNAME ${$t("common.userSentYouAMessage")}`
