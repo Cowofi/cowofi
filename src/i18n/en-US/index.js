@@ -135,6 +135,7 @@ export default {
     publishFeedback: "Publish Feedback",
     accept: "Accept",
     reject: "Reject",
-    goToProfile: "Go to Profile"
+    goToProfile: "Go to Profile",
+    readAll: "Read All",
   },
 };
