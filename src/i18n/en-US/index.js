@@ -73,6 +73,8 @@ export default {
     accepted: "Accepted",
     rejected: "Rejected",
     pending: "Pending",
+    newMessage: "New Message",
+    userSentYouAMessage: "sent you a message",
   },
   messages: {
     information: {
