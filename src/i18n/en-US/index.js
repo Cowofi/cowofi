@@ -136,6 +136,6 @@ export default {
     accept: "Accept",
     reject: "Reject",
     goToProfile: "Go to Profile",
-    readAll: "Read All",
+    markAllAsRead: "Mark all as read",
   },
 };
