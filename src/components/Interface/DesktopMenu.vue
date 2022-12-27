@@ -61,7 +61,7 @@
         @click="handleFetchNotifications"
       >
         <q-icon name="eva-bell-outline" />
-        <q-badge v-show="hasUnreadNotifications" color="red" rounded floating>
+        <q-badge v-show="hasUnreadNotifications()" color="red" rounded floating>
         </q-badge>
         <q-menu>
           <template v-if="loadingNotifications">
@@ -277,7 +277,7 @@ export default {
         }
 
         if (notification.type === "message" && notification.meta) {
-          $router.push(`/messages/${notification.meta.from_user}`);
+          $router.push(`/messages?chat_id=${notification.meta.chat_id}`);
         }
       },
     };
