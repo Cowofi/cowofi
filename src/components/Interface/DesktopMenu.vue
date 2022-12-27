@@ -106,7 +106,7 @@
                       />
                       {{
                         notification.type === "message"
-                          ? `USERNAME ${$t("common.userSentYouAMessage")}`
+                          ? $t("common.youHaveUnreadMessages")
                           : "New follower"
                       }}
                       <q-item-label class="text-grey-6" caption>
