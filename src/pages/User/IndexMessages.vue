@@ -187,7 +187,7 @@ export default {
   },
   setup() {
     const { user } = useAuthStore();
-    const { params } = useRoute();
+    const { params, query } = useRoute();
     const chats = ref([]);
     const selectedChat = ref(null);
     const messages = ref([]);
@@ -254,42 +254,50 @@ export default {
         });
     };
 
-    const fetchChat = (userId) => {
+    const fetchChat = async ({ chatId, userId }) => {
       loadingChats.value = true;
-      supabase
-        .from("chats")
-        .select()
-        .eq("to_user", userId)
-        .then(async ({ data, error }) => {
-          if (error) {
-            Notify.create({
-              color: "negative",
-              textColor: "white",
-              message: error.message,
-            });
-          }
+      let data, error;
 
-          if (data) {
-            const chat = data[0];
+      if (chatId) {
+        ({ data: data, error: error } = await supabase
+          .from("chats")
+          .select()
+          .eq("id", chatId));
+      } else if (userId) {
+        ({ data: data, error: error } = await supabase
+          .from("chats")
+          .select()
+          .eq("to_user", userId));
+      }
 
-            if (!chat) {
-              const { data } = await supabase
-                .from("users")
-                .select()
-                .eq("id", userId);
-              const toUser = data[0];
-
-              createChat({
-                toUserId: userId,
-                fullName: toUser.raw_user_meta_data.full_name,
-              });
-            } else {
-              selectedChat.value = chat;
-              fetchMessages(chat);
-            }
-          }
-          loadingChats.value = false;
+      if (error) {
+        Notify.create({
+          color: "negative",
+          textColor: "white",
+          message: error.message,
         });
+      }
+
+      if (data) {
+        const chat = data[0];
+
+        if (!chat) {
+          const { data } = await supabase
+            .from("users")
+            .select()
+            .eq("id", userId);
+          const toUser = data[0];
+
+          createChat({
+            toUserId: userId,
+            fullName: toUser.raw_user_meta_data.full_name,
+          });
+        } else {
+          selectedChat.value = chat;
+          fetchMessages(chat);
+        }
+      }
+      loadingChats.value = false;
     };
 
     const fetchMessages = (chat) => {
@@ -362,8 +370,10 @@ export default {
       susbscribeToChatMessages(chat.id);
     };
 
-    if (params.userId) {
-      fetchChat(params.userId);
+    if (query.chat_id) {
+      fetchChat({ chatId: query.chat_id });
+    } else if (params.userId) {
+      fetchChat({ userId: params.userId });
     }
 
     // Init methods
