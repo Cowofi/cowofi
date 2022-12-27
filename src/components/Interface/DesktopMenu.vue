@@ -95,6 +95,7 @@
                     v-ripple
                     v-for="notification in notifications"
                     :key="notification.id"
+                    @click="handleClickNotification(notification)"
                   >
                     <q-item-section>
                       <q-badge
@@ -211,6 +212,7 @@ export default {
       .from("notification")
       .on("INSERT", (payload) => {
         console.log(payload);
+        // TODO: handle the new notification
       })
       .subscribe();
 
@@ -262,6 +264,21 @@ export default {
         setTimeout(() => {
           loadingReadAllNotifications.value = false;
         }, 2000);
+      },
+      handleClickNotification(notification) {
+        if (notification.read === false) {
+          supabase
+            .from("notification")
+            .update({ read: true })
+            .eq("id", notification.id)
+            .then((res) => {
+              console.log(res);
+            });
+        }
+
+        if (notification.type === "message" && notification.meta) {
+          $router.push(`/messages/${notification.meta.from_user}`);
+        }
       },
     };
   },
