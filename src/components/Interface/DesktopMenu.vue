@@ -105,7 +105,7 @@
                         rounded
                         style="top: 35%; right: 2%"
                       />
-                      {{getNotificationTitle(notification)}}
+                      {{ getNotificationTitle(notification) }}
                       <q-item-label class="text-grey-6" caption>
                         {{ getTimeAgo(notification.created_at) }}
                       </q-item-label>
