@@ -75,7 +75,9 @@ export default {
     pending: "Pending",
     newMessage: "New Message",
     userSentYouAMessage: "sent you a message",
-    youHaveUnreadMessages: "You have unread messages"
+    youHaveUnreadMessages: "You have unread messages",
+    youHaveNewSchedule: "You have a new schedule",
+    youHaveNewNotification: "You have a new notification"
   },
   messages: {
     information: {
