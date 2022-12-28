@@ -1,5 +1,5 @@
 <template>
-  <q-card style="max-width: 350px" flat bordered>
+  <q-card class="shedule-container" :id="customId + schedule.id" style="max-width: 350px" flat bordered>
     <q-card-section>
       <div class="row q-col-gutter-md">
         <div class="col-12">
@@ -87,6 +87,10 @@ import SpaceMinimal from "components/Space/SpaceMinimal.vue";
 export default {
   name: "ComponentScheduleMiniCard",
   props: {
+    customId: {
+      type: String,
+      default: "",
+    },
     schedule: {
       type: Object,
       required: true,
