@@ -105,11 +105,7 @@
                         rounded
                         style="top: 35%; right: 2%"
                       />
-                      {{
-                        notification.type === "message"
-                          ? $t("common.youHaveUnreadMessages")
-                          : "New follower"
-                      }}
+                      {{getNotificationTitle(notification)}}
                       <q-item-label class="text-grey-6" caption>
                         {{ getTimeAgo(notification.created_at) }}
                       </q-item-label>
@@ -278,6 +274,16 @@ export default {
 
         if (notification.type === "message" && notification.meta) {
           $router.push(`/messages?chat_id=${notification.meta.chat_id}`);
+        }
+      },
+      getNotificationTitle(notification) {
+        switch (notification.type) {
+          case "message":
+            return $t("common.youHaveUnreadMessages");
+          case "schedule":
+            return $t("common.youHaveNewSchedule");
+          default:
+            return $t("common.youHaveNewNotification");
         }
       },
     };
