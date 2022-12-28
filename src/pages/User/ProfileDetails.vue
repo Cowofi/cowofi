@@ -71,6 +71,7 @@
                   class="q-my-md"
                 >
                   <schedule-mini-card
+                    customId="my-schedules-"
                     :schedule="schedule"
                     :show-actions="schedule.status === 'pending'"
                     :loading="loadingScheduleStatusChange"
@@ -107,6 +108,7 @@ import { useAuthStore } from "src/stores/Auth";
 import supabase from "boot/supabase";
 import SpaceMini from "components/Space/SpaceMini.vue";
 import ScheduleMiniCard from "components/Schedule/MiniCard.vue";
+import { useRoute } from "vue-router";
 
 export default {
   name: "PageUserProfile",
@@ -123,6 +125,18 @@ export default {
     const loadingSchedules = ref(true);
     const loadingSchedulesSpaces = ref(true);
     const loadingScheduleStatusChange = ref(false);
+    const { query } = useRoute();
+
+    const goToSchedule = () => {
+      if (query.schedule) {
+        const el = document.querySelector(`#my-schedules-${query.schedule}`);
+
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          el.classList.add("highlight");
+        }
+      }
+    };
 
     supabase
       .from("spaces")
@@ -175,6 +189,9 @@ export default {
           schedulesForMySpaces.value = data.filter((schedule) => {
             return schedule.spaces !== null;
           });
+          setTimeout(() =>{
+            goToSchedule();
+          }, 2000)
         }
         loadingSchedulesSpaces.value = false;
       });
@@ -249,5 +266,10 @@ export default {
 }
 .schedules-container {
   min-height: 250px;
+}
+
+.shedule-container.highlight{
+  background-color: rgba(61, 205, 128, 0.2);
+  transition: all 0.5s ease;
 }
 </style>
