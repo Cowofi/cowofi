@@ -271,9 +271,10 @@ export default {
               console.log(res);
             });
         }
-
         if (notification.type === "message" && notification.meta) {
           $router.push(`/messages?chat_id=${notification.meta.chat_id}`);
+        } else if (notification.type === "schedule"  && notification.meta) {
+          $router.push(`/profile?space=${notification.meta.spaceId}&schedule=${notification.meta.schedule_id}`);
         }
       },
       getNotificationTitle(notification) {
