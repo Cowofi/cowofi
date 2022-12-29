@@ -408,6 +408,7 @@ export default {
               chat_id: selectedChat.value.id,
               user_id: user.id,
               message: message.value,
+              to_user: selectedChat.value.to_user === user.id ? selectedChat.value.from_user : selectedChat.value.to_user,
             })
             .then(({ data, error }) => {
               if (error) {
