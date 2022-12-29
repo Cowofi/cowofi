@@ -256,9 +256,24 @@ export default {
       handleReadAllNotifications() {
         loadingReadAllNotifications.value = true;
 
-        setTimeout(() => {
-          loadingReadAllNotifications.value = false;
-        }, 2000);
+        supabase
+          .from("notification")
+          .update({ read: true })
+          .eq("to_user", authStore.user.id)
+          .then(() => {
+            notifications.value = notifications.value.map((notification) => {
+              return {
+                ...notification,
+                read: true,
+              };
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            loadingReadAllNotifications.value = false;
+          });
       },
       handleClickNotification(notification) {
         if (notification.read === false) {
