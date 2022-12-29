@@ -204,6 +204,20 @@ export default {
       return;
     };
 
+    const markNotificationAsRead = async (notification) => {
+      const { data } = await supabase
+        .from("notification")
+        .update({ read: true })
+        .eq("id", notification.id);
+
+      if (data) {
+        const index = notifications.value.findIndex(
+          (item) => item.id === notification.id
+        );
+        notifications.value[index].read = true;
+      }
+    };
+
     const notificationsSubscription = supabase
       .from("notification")
       .on("INSERT", (payload) => {
@@ -277,15 +291,14 @@ export default {
       },
       handleClickNotification(notification) {
         if (notification.read === false) {
-          supabase
-            .from("notification")
-            .update({ read: true })
-            .eq("id", notification.id);
+          markNotificationAsRead(notification);
         }
         if (notification.type === "message" && notification.meta) {
           $router.push(`/messages?chat_id=${notification.meta.chat_id}`);
-        } else if (notification.type === "schedule"  && notification.meta) {
-          $router.push(`/profile?space=${notification.meta.space_id}&schedule=${notification.meta.schedule_id}`);
+        } else if (notification.type === "schedule" && notification.meta) {
+          $router.push(
+            `/profile?space=${notification.meta.space_id}&schedule=${notification.meta.schedule_id}`
+          );
         }
       },
       getNotificationTitle(notification) {
