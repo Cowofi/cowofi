@@ -265,10 +265,7 @@ export default {
           supabase
             .from("notification")
             .update({ read: true })
-            .eq("id", notification.id)
-            .then((res) => {
-              console.log(res);
-            });
+            .eq("id", notification.id);
         }
         if (notification.type === "message" && notification.meta) {
           $router.push(`/messages?chat_id=${notification.meta.chat_id}`);
