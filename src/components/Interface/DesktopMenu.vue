@@ -207,8 +207,7 @@ export default {
     const notificationsSubscription = supabase
       .from("notification")
       .on("INSERT", (payload) => {
-        console.log(payload);
-        // TODO: handle the new notification
+        notifications.value.unshift(payload.new);
       })
       .subscribe();
 
