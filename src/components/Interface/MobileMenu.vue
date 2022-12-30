@@ -23,19 +23,16 @@
         icon="eva-message-circle-outline"
         :class="activeIcon('/messages')"
       />
-      <q-btn
-        stretch
-        flat
-        :text-color="$q.dark.isActive ? 'white' : 'secondary'"
-        icon="eva-person-outline"
-        :to="'/profile'"
-        :class="activeIcon('/profile')"
-      />
       <q-space />
       <q-avatar class="cursor-pointer" color="primary" text-color="white">
         {{ authStore.user.user_metadata.full_name.substring(0, 1) }}
         <q-menu>
           <q-list style="min-width: 100px">
+            <q-item clickable v-close-popup>
+              <q-item-section @click="$router.push('/profile')">{{
+                $t("common.profile")
+              }}</q-item-section>
+            </q-item>
             <q-item clickable v-close-popup>
               <q-item-section @click="logout()">{{
                 $t("common.logout")
