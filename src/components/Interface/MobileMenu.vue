@@ -41,6 +41,7 @@
           </q-list>
         </q-menu>
       </q-avatar>
+      <NotificationsPanelVue />
     </template>
     <template v-else>
       <q-space />
@@ -70,9 +71,13 @@ import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
 import supabase from "boot/supabase";
 import { useRouter } from "vue-router";
+import NotificationsPanelVue from 'components/Interface/NotificationsPanel.vue';
 
 export default {
   name: "ComponentMobileMenu",
+  components: {
+    NotificationsPanelVue,
+  },
   setup() {
     const darkmodeFromLocalStorage = localStorage.getItem("darkmode");
     const $q = useQuasar();
