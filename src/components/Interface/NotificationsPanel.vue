@@ -46,7 +46,19 @@
                     rounded
                     style="top: 35%; right: 2%"
                   />
-                  {{ getNotificationTitle(notification) }}
+                  <div>
+                    <q-icon
+                      v-if="notification.type === 'schedule'"
+                      size="sm"
+                      name="eva-clock-outline"
+                    />
+                    <q-icon
+                      v-if="notification.type === 'message'"
+                      size="sm"
+                      name="eva-message-circle-outline"
+                    />
+                    {{ getNotificationTitle(notification) }}
+                  </div>
                   <q-item-label class="text-grey-6" caption>
                     {{ getTimeAgo(notification.created_at) }}
                   </q-item-label>
@@ -202,7 +214,7 @@ export default {
       },
       getTimeAgo(time) {
         return timeAgo(time);
-      }
+      },
     };
   },
 };
