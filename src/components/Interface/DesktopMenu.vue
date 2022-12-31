@@ -83,7 +83,6 @@ import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
 import supabase from "boot/supabase";
 import { useRouter } from "vue-router";
-import { timeAgo } from "src/utils/time";
 import NotificationsPanel from "components/Interface/NotificationsPanel.vue";
 
 export default {
