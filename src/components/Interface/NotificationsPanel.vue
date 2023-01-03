@@ -59,7 +59,7 @@
                     />
                     {{ getNotificationTitle(notification) }}
                   </div>
-                  <q-item-label class="text-grey-6" caption>
+                  <q-item-label class="text-grey-6 q-mt-xs" caption>
                     {{ getTimeAgo(notification.created_at) }}
                   </q-item-label>
                 </q-item-section>
