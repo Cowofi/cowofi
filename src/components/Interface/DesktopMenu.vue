@@ -54,6 +54,7 @@
           </q-list>
         </q-menu>
       </q-avatar>
+      <NotificationsPanel />
     </template>
     <template v-else>
       <q-btn
@@ -82,9 +83,13 @@ import { useI18n } from "vue-i18n";
 import { useAuthStore } from "stores/Auth";
 import supabase from "boot/supabase";
 import { useRouter } from "vue-router";
+import NotificationsPanel from "components/Interface/NotificationsPanel.vue";
 
 export default {
   name: "ComponentDesktopMenu",
+  components: {
+    NotificationsPanel,
+  },
   setup() {
     const darkmodeFromLocalStorage = localStorage.getItem("darkmode");
     const $q = useQuasar();
@@ -104,6 +109,7 @@ export default {
         route: "/explorer",
       },
     ];
+
     return {
       essentialLinks: linksList,
       authStore,
@@ -119,7 +125,7 @@ export default {
       toggleDarkMode() {
         window.localStorage.setItem("darkMode", darkMode.value);
         $q.dark.set(darkMode.value);
-      },
+      }
     };
   },
 };

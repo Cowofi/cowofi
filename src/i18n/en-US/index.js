@@ -73,6 +73,11 @@ export default {
     accepted: "Accepted",
     rejected: "Rejected",
     pending: "Pending",
+    newMessage: "New Message",
+    userSentYouAMessage: "sent you a message",
+    youHaveUnreadMessages: "You have unread messages",
+    youHaveNewSchedule: "You have a new schedule",
+    youHaveNewNotification: "You have a new notification"
   },
   messages: {
     information: {
@@ -102,7 +107,8 @@ export default {
       careShareMoreAboutIt: "Care to share more about it?",
       noReviewsYet: "No reviews yet",
       scheduleCreatedDescription: "Your schedule has been created successfully, you can see it in your profile",
-      scheduleCreatedSuccessfully: 'Schedule created successfully'
+      scheduleCreatedSuccessfully: 'Schedule created successfully',
+      noNotifications: "No notifications"
     },
     error: {
       pleaseEnterValidPhoneNumber: "Please enter valid phone number",
@@ -132,6 +138,7 @@ export default {
     publishFeedback: "Publish Feedback",
     accept: "Accept",
     reject: "Reject",
-    goToProfile: "Go to Profile"
+    goToProfile: "Go to Profile",
+    markAllAsRead: "Mark all as read",
   },
 };
